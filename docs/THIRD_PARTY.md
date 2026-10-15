@@ -27,7 +27,7 @@ Quilt-LLaVA, other local model runtimes, and model weights are external assets. 
 
 ## Paper, figures, and data
 
-The [arXiv paper](https://arxiv.org/abs/2609.00342) is distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as linked by its arXiv record. That license applies to the paper and does not establish a license for this source code. The repository's `assets/overview.svg` is a newly authored conceptual illustration; it is not the paper's main figure. The original main-figure PDF is to be supplied by the authors.
+The [arXiv paper](https://arxiv.org/abs/2609.00342) is distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as linked by its arXiv record. That license applies to the paper and does not establish a license for this source code. The author-supplied main figure is preserved at `assets/main-figure.pdf`; its PNG rendering is used in the README and project page. These figure assets retain the paper's applicable terms.
 
 Benchmark WSIs, annotations, model-generated records, and private local banks are not bundled. Users obtain data from the original sources and follow the applicable dataset terms. Before adding public demonstration images or bank exports, record their source and redistribution terms alongside those assets.
 

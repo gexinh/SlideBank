@@ -25,10 +25,10 @@ current tree and releases image object URLs.
 
 ## GitHub Pages
 
-The prepared address is `https://gexinh.github.io/SlideBank/`. This preparation
-does not create a remote repository or deploy a public page.
+The project page is hosted at `https://gexinh.github.io/SlideBank/` from the
+`gexinh/SlideBank` repository.
 
-After publishing the repository, select **Settings → Pages → Source → GitHub
+For a fork or new repository, select **Settings → Pages → Source → GitHub
 Actions**. The included `.github/workflows/pages.yml` deploys only `project/`
 on relevant pushes to `main`, and can also be run manually. It follows GitHub's
 [official static-site workflow](https://github.com/actions/starter-workflows/blob/main/pages/static.yml).
@@ -46,7 +46,7 @@ Set the deployed HTTPS URL in `project/config.js`:
 ```javascript
 window.SLIDEBANK_CONFIG = Object.freeze({
   demoUrl: "https://your-hosted-workbench.example",
-  mainFigure: "overview.svg"
+  mainFigure: "main-figure.png"
 });
 ```
 
@@ -55,10 +55,10 @@ that URL is configured, the page shows working local setup instructions.
 The host must permit iframe embedding; the direct link remains available when
 embedding is restricted. GitHub Pages itself does not execute Gradio or models.
 Preserve the existing `mainFigure` value when changing `demoUrl`; the figure
-preparation script sets it to `main-figure.png` when the paper figure is ready.
+preparation script keeps it set to `main-figure.png`.
 
 ## Main figure
 
 See [assets/README.md](../assets/README.md). The figure preparation script
-synchronizes the original PDF and web PNG into both asset directories. The
-conceptual SVG remains available as a repository illustration.
+synchronizes the original PDF and web PNG into both asset directories. Both the
+README and static HTML use the paper figure directly.

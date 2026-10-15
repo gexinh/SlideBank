@@ -1,13 +1,14 @@
 # Paper figure assets
 
-`overview.svg` is a conceptual repository illustration, not an extracted paper
-figure. Both the README and project page use it until the original main figure
-is provided.
+`main-figure.pdf` is the original paper figure supplied by the author as
+`Fig1.pdf`, preserved byte for byte under its canonical repository filename.
+`main-figure.png` is its 200-DPI web rendering. Both the README and project page
+display the paper figure; the earlier conceptual placeholder has been removed.
 
-Place the original PDF at `assets/main-figure.pdf`, then run from the repo root:
+To update the figure, replace `assets/main-figure.pdf`, then run from the repo root:
 
 ```bash
-python scripts/prepare_main_figure.py
+python scripts/prepare_main_figure.py --dpi 200
 ```
 
 If you place the PDF elsewhere, including in the repository root, pass its path:

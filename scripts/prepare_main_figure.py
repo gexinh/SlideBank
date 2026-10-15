@@ -46,7 +46,6 @@ def prepare(source: Path, dpi: int = 160) -> tuple[Path, Path]:
             shutil.copyfile(asset, pages_assets / asset.name)
     readme = ROOT / "README.md"
     text = readme.read_text(encoding="utf-8")
-    text = text.replace('src="assets/overview.svg"', 'src="assets/main-figure.png"')
     text = re.sub(
         r"(?<=<!-- main-figure-caption:start -->).*?(?=<!-- main-figure-caption:end -->)",
         "\n*Main figure from the SlideBank paper. [Original PDF](assets/main-figure.pdf).*\n",

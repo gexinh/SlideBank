@@ -10,24 +10,24 @@
 
 <p align="center">
   <a href="https://arxiv.org/abs/2609.00342">Paper</a> ·
-  <a href="https://gexinh.github.io/SlideBank/">Project Page (planned; not deployed)</a> ·
+  <a href="https://gexinh.github.io/SlideBank/">Project Page</a> ·
   <a href="#interactive-workbench">Interactive Workbench</a> ·
   <a href="#citation">Citation</a>
 </p>
 
 SlideBank separates whole-slide exploration from question answering. It builds a persistent evidence bank with global summaries, regional observations, and patch views, linked through pathology concepts and slide coordinates. The bank can then be reused to retrieve relevant evidence for successive questions.
 
-This repository prepares the clean Python backend, the latest V5 Gradio workbench, and a static project page for public release.
+This repository contains the clean Python backend, the latest V5 Gradio workbench, and an interactive project page.
 
 <p align="center">
-  <img src="assets/overview.svg" width="100%" alt="Conceptual overview: explore a whole-slide image, retain a hierarchical evidence bank, and retrieve evidence for questions">
+  <a href="assets/main-figure.pdf"><img src="assets/main-figure.png" width="100%" alt="SlideBank paper main figure: hierarchical evidence-bank construction, evidence-augmented reasoning, and persistent reuse across queries"></a>
 </p>
 
 <!-- main-figure-caption:start -->
-*Conceptual overview prepared for this repository; the paper's main figure will replace it when the original PDF is added.*
+*Main figure from the SlideBank paper. [Original PDF](assets/main-figure.pdf).*
 <!-- main-figure-caption:end -->
 
-Save the original as `assets/main-figure.pdf` and run `python scripts/prepare_main_figure.py` to prepare the README and project-page images. See [the asset guide](assets/README.md).
+The original figure PDF is included above. See [the asset guide](assets/README.md) for updating the README and project-page images.
 
 ## Installation
 
@@ -88,7 +88,7 @@ The static site source is in [project/](project/). It includes a browser-local e
 python -m http.server --directory project 8080
 ```
 
-Open **http://127.0.0.1:8080**. The planned GitHub Pages address is **https://gexinh.github.io/SlideBank/**; it becomes available after this repository is published and Pages deployment is configured. The Gradio workbench runs as a separate Python service; a static host cannot execute model inference. See [project-page setup](docs/PROJECT_PAGE.md) for the included Pages workflow and hosted-demo configuration.
+Open **http://127.0.0.1:8080**, or visit the [project page](https://gexinh.github.io/SlideBank/). The Gradio workbench runs as a separate Python service; a static host cannot execute model inference. See [project-page setup](docs/PROJECT_PAGE.md) for the included Pages workflow and hosted-demo configuration.
 
 ## Repository layout
 
@@ -98,7 +98,7 @@ slidebank/      Bank construction, retrieval, VLM adapters, and UI support
 scripts/        Build, inference, UI-tree export, and figure preparation
 configs/        Portable configuration templates
 project/        Static project page
-assets/         Overview and paper main-figure assets
+assets/         Original paper main figure and web preview
 docs/           Data contract, release notes, and source attribution
 ```
 
