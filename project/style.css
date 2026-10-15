@@ -113,11 +113,6 @@ h1 {
   line-height:1.08;
   margin:20px 0 25px
 }
-h1 em {
-  font-family:Georgia,serif;
-  font-weight:400;
-  color:var(--green)
-}
 .paper-title {
   font-size:19px;
   line-height:1.55;
