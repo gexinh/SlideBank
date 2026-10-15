@@ -79,16 +79,6 @@ Choose an entry point for interactive questions or batch evaluation:
 | `app.py` | Question policy, agent routing with rule fallback, compact evidence retrieval, and a final VLM answer. Supports free-form and multiple-choice questions. |
 | `scripts/infer.py` | Batch MCQ inference using the tool-context retrieval pipeline; `single` and `multi` modes control whether previous answers enter the prompt. |
 
-## Project page
-
-The [project page](https://gexinh.github.io/SlideBank/) opens a preloaded evidence hierarchy, with global, regional, and patch views. Browsing it runs in your browser. **Your own evidence** also accepts exported JSON and local images. To run the site locally:
-
-```bash
-python -m http.server --directory project 8080
-```
-
-Open **http://127.0.0.1:8080**. Use the embedded Gradio workbench for model inference. See the [project-page guide](docs/PROJECT_PAGE.md) for deployment and the boundary between browser browsing and hosted inference.
-
 ## Repository layout
 
 ```text
