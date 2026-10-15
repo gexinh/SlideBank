@@ -1,8 +1,8 @@
 # Data and bank contract
 
-No WSIs, benchmark annotations, model weights, private bank exports, or existing
-run outputs are bundled. Supply these separately and edit the YAML templates.
-Run the documented CLI commands from the repository root.
+WSIs, benchmark annotations, model weights, and precomputed banks are obtained
+separately. Configure their paths in the YAML templates and run the CLI commands
+from the repository root.
 
 ## CSV input
 
@@ -19,7 +19,7 @@ UTF-8 with an optional BOM.
 | `Image` | Optional thumbnail path or filename; `image` is accepted. |
 | `RowId` | Optional record ID; fallbacks are `row_id`, `Unnamed: 0`, `ID`, then the zero-based CSV row number. |
 
-Bank construction uses this loader to obtain the slide list. The loader still
+Bank construction uses this loader to obtain the slide list. The loader
 requires a nonempty question field, although bank construction explores each
 slide independently of the question text. Inference expects meaningful four-way
 options. Labels are optional for unlabeled prediction; accuracy is interpretable
@@ -89,9 +89,9 @@ from the visitor's local folder and matches paths by their longest unique suffix
 Neither a tree JSON nor its images replace the persistent bank needed for QA.
 See [WORKBENCH.md](WORKBENCH.md) for runtime configuration.
 
-New builds normalize their input and output directories to absolute paths so
+Bank construction normalizes input and output directories to absolute paths so
 moving the exported JSON into a separate visualization directory does not change
-its image base. For older banks, the exporter resolves relative paths only when
+its image base. For existing banks, the exporter resolves relative paths only when
 the referenced file actually exists under its working directory. It preserves
 other relative paths for portable JSON/image bundles. Unresolved paths are not
 guessed: restore the original images, correct the tree paths, or rebuild the bank.

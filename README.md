@@ -1,23 +1,22 @@
-<h1 align="center">SlideBank</h1>
+<h1 align="center"><img src="assets/slidebank-icon.svg" width="42" height="42" align="absmiddle" alt=""> SlideBank</h1>
 
 <p align="center"><strong>A Persistent Hierarchical Evidence Bank for Consistent Whole-Slide Reasoning</strong></p>
 
 <p align="center">
-  Beidi Zhao · Gexin Huang · Ciro Zhang · Anqi Li · Yusheng Tan · Chen Zhou · Gang Wang · Zu-hua Gao · Xiaoxiao Li
+  Beidi Zhao<sup>*</sup> · Gexin Huang<sup>*</sup> · Ciro Zhang<sup>*</sup> · Anqi Li · Yusheng Tan · Chen Zhou · Gang Wang · Zu-hua Gao · Xiaoxiao Li
 </p>
 
-<p align="center"><strong>Accepted at WACV</strong></p>
+<p align="center"><sup>*</sup> Equal contribution.</p>
 
 <p align="center">
-  <a href="https://arxiv.org/abs/2609.00342">Paper</a> ·
-  <a href="https://gexinh.github.io/SlideBank/">Project Page</a> ·
-  <a href="#interactive-workbench">Interactive Workbench</a> ·
-  <a href="#citation">Citation</a>
+  <a href="https://arxiv.org/abs/2609.00342"><img src="https://img.shields.io/badge/Paper-arXiv-B31B1B?logo=arxiv&amp;logoColor=white" alt="Read the paper on arXiv"></a>
+  <a href="https://gexinh.github.io/SlideBank/"><img src="https://img.shields.io/badge/Project%20Page-Visit-256D5B?logo=googlechrome&amp;logoColor=white" alt="Visit the project page"></a>
+  <a href="#interactive-workbench"><img src="https://img.shields.io/badge/Workbench-Gradio-F97316?logo=gradio&amp;logoColor=white" alt="Open the workbench guide"></a>
+  <a href="#citation"><img src="https://img.shields.io/badge/Citation-BibTeX-4051B5?logo=googlescholar&amp;logoColor=white" alt="View the BibTeX citation"></a>
+  <a href="https://github.com/gexinh/SlideBank/actions/workflows/ci.yml"><img src="https://github.com/gexinh/SlideBank/actions/workflows/ci.yml/badge.svg" alt="Continuous integration status"></a>
 </p>
 
 SlideBank separates whole-slide exploration from question answering. It builds a persistent evidence bank with global summaries, regional observations, and patch views, linked through pathology concepts and slide coordinates. The bank can then be reused to retrieve relevant evidence for successive questions.
-
-This repository contains the clean Python backend, the latest V5 Gradio workbench, and an interactive project page.
 
 <p align="center">
   <a href="assets/main-figure.pdf"><img src="assets/main-figure.png" width="100%" alt="SlideBank paper main figure: hierarchical evidence-bank construction, evidence-augmented reasoning, and persistent reuse across queries"></a>
@@ -26,8 +25,6 @@ This repository contains the clean Python backend, the latest V5 Gradio workbenc
 <!-- main-figure-caption:start -->
 *Main figure from the SlideBank paper. [Original PDF](assets/main-figure.pdf).*
 <!-- main-figure-caption:end -->
-
-The original figure PDF is included above. See [the asset guide](assets/README.md) for updating the README and project-page images.
 
 ## Installation
 
@@ -41,7 +38,7 @@ python -m pip install -e ".[ui,wsi]"
 
 The `wsi` extra includes OpenSlide's Python bindings and bundled library; if your platform needs a system installation, follow the [OpenSlide installation guide](https://openslide.org/download/). Install `.[local]` for local model inference or `.[gemini]` for the Gemini API. Quilt-LLaVA additionally needs its external runtime repository and model weights; use `configs/build_quilt.yaml` and `configs/infer_quilt.yaml` after setting `SLIDEBANK_QUILT_LLAVA_REPO`.
 
-Model weights, benchmark datasets, WSIs, and precomputed private banks are obtained separately. The static project page can be previewed without installing the Python package.
+Model weights, datasets, and precomputed banks are obtained separately.
 
 ## Build, retrieve, and answer
 
@@ -69,37 +66,35 @@ Use `--help` on each script to inspect runtime overrides. Supported inference ba
 python app.py
 ```
 
-Open **http://127.0.0.1:7864** to use the latest V5 workbench. Configure the runtime, load an exported evidence bank, browse global/region/patch views, and submit a question. For a remote server, forward port 7864 through SSH or your editor.
+Open **http://127.0.0.1:7864**, configure a model, and load an exported evidence bank to browse global, regional, and patch views or ask a question. For a remote server, forward port 7864 through SSH or your editor. See the [workbench guide](docs/WORKBENCH.md) for runtime and data configuration.
 
-The UI and batch CLI expose different inference paths:
+Choose an entry point for interactive questions or batch evaluation:
 
 | Entry point | Retrieval and answer flow |
 | --- | --- |
-| `app.py` | V5 question policy, agent routing with rule fallback, selected compact evidence context, and a final VLM answer. Supports free-form and multiple-choice questions. |
+| `app.py` | Question policy, agent routing with rule fallback, compact evidence retrieval, and a final VLM answer. Supports free-form and multiple-choice questions. |
 | `scripts/infer.py` | Batch MCQ inference using the tool-context retrieval pipeline; `single` and `multi` modes control whether previous answers enter the prompt. |
-
-The clean release has not undergone a full benchmark reproduction. The paper's confidence-based cross-level consensus and reported benchmark results should not be assumed to match these entry points. See [release notes](docs/RELEASE_SUMMARY.md) for scope and validation.
 
 ## Project page
 
-The static site source is in [project/](project/). It includes a browser-local evidence viewer for exported JSON and an optional embedded Gradio workbench. Preview it locally:
+The [project page](https://gexinh.github.io/SlideBank/) includes an evidence viewer for exported JSON and local images. To run the site locally:
 
 ```bash
 python -m http.server --directory project 8080
 ```
 
-Open **http://127.0.0.1:8080**, or visit the [project page](https://gexinh.github.io/SlideBank/). The Gradio workbench runs as a separate Python service; a static host cannot execute model inference. See [project-page setup](docs/PROJECT_PAGE.md) for the included Pages workflow and hosted-demo configuration.
+Open **http://127.0.0.1:8080**. Model inference runs through the Python workbench. See the [hosting guide](docs/PROJECT_PAGE.md) to connect a hosted workbench to the page.
 
 ## Repository layout
 
 ```text
-app.py          Latest V5 interactive workbench
+app.py          Interactive workbench
 slidebank/      Bank construction, retrieval, VLM adapters, and UI support
 scripts/        Build, inference, UI-tree export, and figure preparation
 configs/        Portable configuration templates
 project/        Static project page
 assets/         Original paper main figure and web preview
-docs/           Data contract, release notes, and source attribution
+docs/           Data, workbench, hosting, and source guides
 ```
 
 ## Citation
@@ -117,8 +112,6 @@ If you use SlideBank in your research, please cite the paper:
 }
 ```
 
-The citation uses the current arXiv metadata; conference bibliographic details can be updated when the proceedings entry is available.
-
 ## Acknowledgments and licensing
 
-The backend retains WSI processing and evidence-bank components from the authors' WSIChat development code and uses external model and imaging libraries. Original SlideBank contributions are available under the [MIT License](LICENSE). Inherited WSIChat components have separate provenance and their license remains to be confirmed; see [THIRD_PARTY.md](docs/THIRD_PARTY.md) for the affected paths and scope. Model weights, datasets, and paper assets retain their respective terms.
+SlideBank builds on WSIChat's WSI processing and evidence-bank components. Original SlideBank contributions are available under the [MIT License](LICENSE); see [source attribution and terms](docs/THIRD_PARTY.md) for inherited components and external assets.

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-labelledby="title desc">
+  <title id="title">SlideBank</title>
+  <desc id="desc">Three stacked slide views with a spatial evidence marker.</desc>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="#182b42"/>
+  <path d="m12 39 25-10 16 8-25 12Z" fill="#649c91"/>
+  <path d="m12 30 25-10 16 8-25 12Z" fill="#a9d7cb"/>
+  <path d="m12 21 25-10 16 8-25 12Z" fill="#f5f8fc"/>
+  <path d="m21 21 15-6 8 4-15 6Z" fill="#d9c8e7"/>
+  <circle cx="31" cy="20" r="2.1" fill="#8b719f"/>
+  <circle cx="37" cy="18" r="1.7" fill="#a58ab9"/>
+  <circle cx="46" cy="45" r="5.5" fill="#f0c882" stroke="#182b42" stroke-width="2"/>
+  <circle cx="46" cy="45" r="1.6" fill="#182b42"/>
+</svg>

@@ -1,15 +1,15 @@
 # Project page
 
-The repository contains two connected interfaces:
+The static project page and Python workbench serve complementary roles:
 
 - `project/`: a buildless static paper page with a browser-local evidence viewer.
-- `app.py`: the latest V5 Gradio workbench for bank building, evidence browsing,
+- `app.py`: a Gradio workbench for bank building, evidence browsing,
   and model-backed question answering.
 
 The static evidence viewer opens `slidebank-ui-tree-v1` JSON and optionally a
 local image folder. It can inspect real exports without running Python or
 calling a model. Imported files are read in the browser and are not sent to a
-server. No patient images or synthetic inference results are preloaded.
+server.
 
 ## Preview
 
@@ -25,7 +25,7 @@ current tree and releases image object URLs.
 
 ## GitHub Pages
 
-The project page is hosted at `https://gexinh.github.io/SlideBank/` from the
+The project page is hosted at [gexinh.github.io/SlideBank](https://gexinh.github.io/SlideBank/) from the
 `gexinh/SlideBank` repository.
 
 For a fork or new repository, select **Settings → Pages → Source → GitHub
@@ -50,8 +50,8 @@ window.SLIDEBANK_CONFIG = Object.freeze({
 });
 ```
 
-The paper page then displays a workbench iframe and a direct-open link. Until
-that URL is configured, the page shows working local setup instructions.
+With a hosted URL configured, the page displays a workbench iframe and a
+direct-open link. Otherwise, it shows local setup instructions.
 The host must permit iframe embedding; the direct link remains available when
 embedding is restricted. GitHub Pages itself does not execute Gradio or models.
 Preserve the existing `mainFigure` value when changing `demoUrl`; the figure

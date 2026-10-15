@@ -1,6 +1,6 @@
 # SlideBank Workbench
 
-The workbench combines the latest conversation interface with a hierarchical
+The workbench combines question answering with a hierarchical
 evidence browser: global slide overview, selected grid cell, and anchor patch
 views. Browsing an existing evidence tree requires no model call. Question
 answering and rebuilding a bank use the model you configure.
@@ -15,8 +15,8 @@ python app.py
 ```
 
 Open <http://127.0.0.1:7864>. The supported UI dependency is Gradio 5.x; install
-through the package extra to get the declared version range. A fresh checkout
-opens an empty workbench and explains how to load your own evidence bank.
+through the package extra to get the declared version range. The evidence
+browser remains empty until a tree is loaded.
 
 ## Load your evidence
 
@@ -106,7 +106,7 @@ The static project page can be hosted on GitHub Pages. This workbench needs a
 Python server and its configured data/model access; deploy it separately on a
 machine or service that supports those resources.
 
-## Validation without model calls
+## Interface checks
 
 ```bash
 python -m unittest discover -s tests -p 'test_ui_release.py' -v
@@ -114,5 +114,5 @@ python -m unittest discover -s tests -p 'test_ui_release.py' -v
 
 These checks build the empty Gradio interface, resolve tree paths, reject invalid
 schema and raw slide uploads, and verify that missing banks or credentials stop
-before inference. They use temporary structural fixtures and never produce
-predictions or package patient images.
+before inference. The tests use temporary fixtures and require no slide data
+or model runtime.

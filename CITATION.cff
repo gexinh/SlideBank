@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use SlideBank in your research, please cite the paper below."
 type: software
 title: "SlideBank"
-abstract: "Persistent hierarchical evidence banks and an interactive workbench for whole-slide reasoning. Original SlideBank contributions use MIT; inherited source licensing is described in docs/THIRD_PARTY.md."
+abstract: "A persistent, concept-indexed hierarchical evidence bank for whole-slide reasoning."
 url: "https://arxiv.org/abs/2609.00342"
 authors:
   - family-names: Zhao
@@ -46,6 +46,7 @@ preferred-citation:
     - family-names: Li
       given-names: Xiaoxiao
   journal: "arXiv"
+  notes: "Beidi Zhao, Gexin Huang, and Ciro Zhang contributed equally."
   year: 2026
   doi: "10.48550/arXiv.2609.00342"
   url: "https://arxiv.org/abs/2609.00342"
