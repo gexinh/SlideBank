@@ -53,13 +53,17 @@ Set the deployed HTTPS URL in `project/config.js`:
 ```javascript
 window.SLIDEBANK_CONFIG = Object.freeze({
   demoUrl: "https://gexinh-slidebank.hf.space",
+  demoPageUrl: "https://huggingface.co/spaces/gexinh/SlideBank",
   qaEnabled: true,
   mainFigure: "main-figure.png"
 });
 ```
 
 With a hosted URL configured, the page displays a workbench iframe and a
-direct-open link. Otherwise, it shows local setup instructions.
+direct-open link. `demoUrl` is the embeddable app URL; `demoPageUrl` optionally
+opens its full hosting page, including Hugging Face sign-in. Otherwise, the
+direct link uses `demoUrl`. Without a hosted URL, the page shows local setup
+instructions.
 The host must permit iframe embedding; the direct link remains available when
 embedding is restricted. GitHub Pages itself does not execute Gradio or models.
 Preserve the existing `mainFigure` value when changing `demoUrl`; the figure

@@ -744,6 +744,20 @@ def on_anchor_select(anchor_choice: str, bank: Dict[str, Any], tile_id: str) -> 
     )
 
 
+def _hosted_error_message(error: Exception) -> str:
+    text = str(error).lower()
+    if "zerogpu" in text and "quota" in text:
+        return (
+            "Your remaining ZeroGPU allowance is insufficient for this request's reserved GPU duration. "
+            "Sign in to Hugging Face to use your account's allowance, or try again after the quota resets. "
+            "Evidence browsing is still available."
+        )
+    return (
+        "Live QA could not finish. ZeroGPU capacity, quota, or the model runtime may be unavailable. "
+        "Please retry later; evidence browsing is still available."
+    )
+
+
 def submit_chat(
     message: str,
     chat_history: List[Dict[str, str]],
@@ -808,10 +822,7 @@ def submit_chat(
         runtime["evidence_route"] = answer.evidence_route
     except Exception as exc:
         if HOSTED_MODE:
-            status = (
-                "Live QA could not finish. ZeroGPU capacity, quota, or the model runtime may be unavailable. "
-                "Please retry later; evidence browsing is still available."
-            )
+            status = _hosted_error_message(exc)
             assistant_text = status
             print(f"Hosted QA failed: {type(exc).__name__}: {exc}", flush=True)
         else:

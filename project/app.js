@@ -359,8 +359,9 @@ if (typeof document !== "undefined") (() => {
   if (config.demoUrl) {
     try {
       const url = new URL(config.demoUrl);
-      if (url.protocol !== "https:") throw new Error("The hosted workbench URL must use HTTPS.");
-      $("demo-link").href = url.href; $("demo-frame").src = url.href;
+      const pageUrl = new URL(config.demoPageUrl || url.href);
+      if (url.protocol !== "https:" || pageUrl.protocol !== "https:") throw new Error("The hosted workbench URL must use HTTPS.");
+      $("demo-link").href = pageUrl.href; $("demo-frame").src = url.href;
       $("hosted-workbench").hidden = false;
       $("local-workbench").hidden = true;
       $("open-workbench").hidden = false;

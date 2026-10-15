@@ -62,12 +62,18 @@ Space build. Startup then explicitly prepares the model using the Spaces SDK's
 CUDA emulation, before starting the web interface. Importing the launcher does
 not prepare a model; CPU-only startup skips this step entirely.
 
-The complete question-answering call runs inside `spaces.GPU(duration=120)`.
+The complete question-answering call runs inside `spaces.GPU(duration=60)`.
 This includes routing and final answer generation, so both calls use the same
 allocated GPU and cached client. The workbench queues one request at a time,
 with up to eight queued requests. GPU availability and daily quota are managed
 by Hugging Face. An allocation, quota, or inference error leaves evidence
 browsing available and asks the visitor to retry later.
+
+The SDK can scale this reservation for its GPU profile; a 60-second duration
+currently reserves 90 seconds on the Blackwell `large` profile. A request can be
+declined while some allowance remains if that allowance is below the reserved
+duration. The workbench explains this distinction and suggests signing in to
+Hugging Face or returning after the allowance resets.
 
 No visitor API key or paid inference endpoint is used. There is no automatic
 fallback to an API or to multi-billion-parameter CPU inference.
@@ -88,6 +94,7 @@ available; a successful CPU preview checks browsing, not GPU inference.
 | Model | `Qwen/Qwen2.5-VL-3B-Instruct` |
 | Device and precision | `cuda:0`, `bf16` |
 | Output limit | 256 generated tokens per model call |
+| GPU duration | 60 seconds for the complete QA call |
 | Image budget | 401,408 pixels, about 512 visual tokens for Qwen |
 | Question limit | 2,000 characters |
 | Host and port | `0.0.0.0:7860` |
@@ -96,7 +103,8 @@ The existing `SLIDEBANK_UI_TREE_DIR`, `SLIDEBANK_BANK_DIR`,
 `SLIDEBANK_ARTIFACT_DIR`, `SLIDEBANK_INFER_CONFIG`, `SLIDEBANK_HOST`, and
 `SLIDEBANK_PORT` variables can override the corresponding launcher paths or
 network settings. `SLIDEBANK_GPU_DURATION` sets a GPU duration between 15 and
-120 seconds. Changing model, path, or hardware settings requires a Space restart.
+120 seconds, defaulting to 60. Changing model, path, or hardware settings requires
+a Space restart.
 
 `allow_remote_download: true` in `configs/hosted.yaml` explicitly permits model
 downloads on the hosted path. Local Hugging Face inference remains cache-only

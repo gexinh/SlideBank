@@ -106,7 +106,7 @@ assert 'app' not in sys.modules
         with mock.patch.dict(os.environ, {"SPACES_ZERO_GPU": "true"}), mock.patch.dict(sys.modules, {"torch": torch}), mock.patch("slidebank.agent_inference_v5.answer_question_v5", side_effect=actual_answer) as answer:
             result = runtime.answer_on_gpu(**supplied)
         self.assertEqual(result, "real-flow-result")
-        self.assertEqual(sdk.options["duration"], 120)
+        self.assertEqual(sdk.options["duration"], 60)
         answer.assert_called_once()
 
     def test_failed_gpu_allocation_never_runs_v5_on_cpu(self):
@@ -211,6 +211,26 @@ class HostedInterfaceTests(unittest.TestCase):
         local.assert_not_called()
         self.assertIn("requires ZeroGPU", result[-1])
         self.assertEqual(result[-2]["api_key"], "")
+
+    def test_quota_rejection_explains_insufficient_reservation_without_private_error(self):
+        bank = {"slide_id": "fixture", "global": {}, "tiles": [{"tile_id": "R0", "anchors": []}]}
+        failure = RuntimeError("You have exceeded your ZeroGPU quota (180s requested vs. 173s left). Private backend detail.")
+        with mock.patch.object(self.app.hosted_runtime, "availability_error", return_value=""), mock.patch.object(self.app.hosted_runtime, "answer_on_gpu", side_effect=failure):
+            result = self.app.submit_chat("Question", [], bank, "", "", "Local Model", "", "", "", "", "", "")
+        self.assertIn("remaining ZeroGPU allowance is insufficient", result[-1])
+        self.assertIn("Sign in to Hugging Face", result[-1])
+        self.assertIn("after the quota resets", result[-1])
+        self.assertNotIn("180s", result[-1])
+        self.assertNotIn("173s", result[-1])
+        self.assertNotIn("Private backend", result[0][-1]["content"])
+
+    def test_other_hosted_errors_keep_the_sanitized_retry_message(self):
+        bank = {"slide_id": "fixture", "global": {}, "tiles": [{"tile_id": "R0", "anchors": []}]}
+        with mock.patch.object(self.app.hosted_runtime, "availability_error", return_value=""), mock.patch.object(self.app.hosted_runtime, "answer_on_gpu", side_effect=RuntimeError("private/model/path unavailable")):
+            result = self.app.submit_chat("Question", [], bank, "", "", "Local Model", "", "", "", "", "", "")
+        self.assertIn("Live QA could not finish", result[-1])
+        self.assertNotIn("private/model/path", result[-1])
+        self.assertNotIn("remaining ZeroGPU allowance is insufficient", result[-1])
 
 
 if __name__ == "__main__":

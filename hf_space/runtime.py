@@ -14,7 +14,7 @@ def _enabled(value: str) -> bool:
 
 
 HOSTED_MODE = _enabled(os.environ.get("SLIDEBANK_HOSTED", ""))
-GPU_DURATION = max(15, min(120, int(os.environ.get("SLIDEBANK_GPU_DURATION", "120"))))
+GPU_DURATION = max(15, min(120, int(os.environ.get("SLIDEBANK_GPU_DURATION", "60"))))
 _spaces = None
 _sdk_error = ""
 _model_error = ""
