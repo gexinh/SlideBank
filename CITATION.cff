@@ -1,0 +1,54 @@
+cff-version: 1.2.0
+message: "If you use SlideBank in your research, please cite the paper below."
+type: software
+title: "SlideBank"
+abstract: "Persistent hierarchical evidence banks and an interactive workbench for whole-slide reasoning. Original SlideBank contributions use MIT; inherited source licensing is described in docs/THIRD_PARTY.md."
+url: "https://arxiv.org/abs/2609.00342"
+authors:
+  - family-names: Zhao
+    given-names: Beidi
+  - family-names: Huang
+    given-names: Gexin
+  - family-names: Zhang
+    given-names: Ciro
+  - family-names: Li
+    given-names: Anqi
+  - family-names: Tan
+    given-names: Yusheng
+  - family-names: Zhou
+    given-names: Chen
+  - family-names: Wang
+    given-names: Gang
+  - family-names: Gao
+    given-names: Zu-hua
+  - family-names: Li
+    given-names: Xiaoxiao
+preferred-citation:
+  type: article
+  title: "SlideBank: A Persistent Hierarchical Evidence Bank for Consistent Whole-Slide Reasoning"
+  authors:
+    - family-names: Zhao
+      given-names: Beidi
+    - family-names: Huang
+      given-names: Gexin
+    - family-names: Zhang
+      given-names: Ciro
+    - family-names: Li
+      given-names: Anqi
+    - family-names: Tan
+      given-names: Yusheng
+    - family-names: Zhou
+      given-names: Chen
+    - family-names: Wang
+      given-names: Gang
+    - family-names: Gao
+      given-names: Zu-hua
+    - family-names: Li
+      given-names: Xiaoxiao
+  journal: "arXiv"
+  year: 2026
+  doi: "10.48550/arXiv.2609.00342"
+  url: "https://arxiv.org/abs/2609.00342"
+  identifiers:
+    - type: other
+      value: "arXiv:2609.00342"

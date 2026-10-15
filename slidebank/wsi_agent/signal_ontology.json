@@ -1,0 +1,299 @@
+{
+  "version": "v2.0-concept-router",
+  "signals": [
+    {
+      "signal_id": "SIG101__NUCLEAR_PLEOMORPHISM_HIGH",
+      "signal_name": "nuclear_pleomorphism_high",
+      "description": "Marked nuclear size and shape variation suggestive of aggressive morphology.",
+      "weight": 0.9,
+      "applicable_labels": ["tumor", "other"]
+    },
+    {
+      "signal_id": "SIG102__MITOTIC_ACTIVITY_HIGH",
+      "signal_name": "mitotic_activity_high",
+      "description": "Frequent mitotic figures indicating increased proliferative activity.",
+      "weight": 0.88,
+      "applicable_labels": ["tumor", "other"]
+    },
+    {
+      "signal_id": "SIG103__TUBULE_FORMATION_LOW",
+      "signal_name": "tubule_formation_low",
+      "description": "Reduced tubular differentiation with predominance of solid growth pattern.",
+      "weight": 0.86,
+      "applicable_labels": ["tumor", "other"]
+    },
+    {
+      "signal_id": "SIG104__TUMOR_GRADE_HIGH_SUPPORT",
+      "signal_name": "tumor_grade_high_support",
+      "description": "Composite visual cues supporting higher tumor grade impression.",
+      "weight": 0.84,
+      "applicable_labels": ["tumor", "other"]
+    },
+    {
+      "signal_id": "SIG111__DCIS_PRESENT",
+      "signal_name": "dcis_present",
+      "description": "In-situ ductal epithelial proliferation without clear stromal invasion in sampled field.",
+      "weight": 0.78,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    },
+    {
+      "signal_id": "SIG112__DCIS_COMEDO_NECROSIS",
+      "signal_name": "dcis_comedo_necrosis",
+      "description": "Intraluminal necrotic debris compatible with comedo-type DCIS morphology.",
+      "weight": 0.82,
+      "applicable_labels": ["tumor", "necrosis", "other"]
+    },
+    {
+      "signal_id": "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM",
+      "signal_name": "dcis_arch_solid_cribriform",
+      "description": "Solid or cribriform in-situ architecture in ductal units.",
+      "weight": 0.76,
+      "applicable_labels": ["tumor", "other"]
+    },
+    {
+      "signal_id": "SIG121__LYMPHOVASCULAR_INVASION_PRESENT",
+      "signal_name": "lymphovascular_invasion_present",
+      "description": "Suspicious tumor emboli within endothelial-lined spaces.",
+      "weight": 0.74,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    },
+    {
+      "signal_id": "SIG131__MICROCALCIFICATION_PRESENT",
+      "signal_name": "microcalcification_present",
+      "description": "Fine basophilic calcific deposits within tumor-associated tissue.",
+      "weight": 0.72,
+      "applicable_labels": ["tumor", "stroma", "necrosis", "other"]
+    },
+    {
+      "signal_id": "SIG132__TUMOR_NECROSIS_PRESENT",
+      "signal_name": "tumor_necrosis_present",
+      "description": "Necrotic tumor-associated debris with reduced viable cellular architecture.",
+      "weight": 0.8,
+      "applicable_labels": ["tumor", "necrosis", "other"]
+    },
+    {
+      "signal_id": "SIG141__MARGIN_TUMOR_CLOSE",
+      "signal_name": "margin_tumor_close",
+      "description": "Tumor component appears close to a specimen edge in sampled context.",
+      "weight": 0.66,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    },
+    {
+      "signal_id": "SIG142__MARGIN_TUMOR_INVOLVED",
+      "signal_name": "margin_tumor_involved",
+      "description": "Tumor appears to involve sampled edge or margin-like boundary.",
+      "weight": 0.64,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    },
+    {
+      "signal_id": "SIG151__LYMPH_NODE_METASTASIS_PRESENT",
+      "signal_name": "lymph_node_metastasis_present",
+      "description": "Metastatic epithelial population in lymphoid background context.",
+      "weight": 0.7,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    },
+    {
+      "signal_id": "SIG152__MICROMETASTASIS_PRESENT",
+      "signal_name": "micrometastasis_present",
+      "description": "Small metastatic focus compatible with micrometastatic burden.",
+      "weight": 0.68,
+      "applicable_labels": ["tumor", "stroma", "other"]
+    }
+  ],
+  "concept_set": {
+    "morphology_chain": [
+      {"id": "M01", "name": "Tumor Presence & Distribution / Focality"},
+      {"id": "M02", "name": "Histological Tumor Type (Coarse)"},
+      {"id": "M03", "name": "Tumor Grade (Generic Components)"},
+      {"id": "M04", "name": "Necrosis Assessment"},
+      {"id": "M05", "name": "Inflammation / TILs Assessment"},
+      {"id": "M06", "name": "In-situ Component Assessment (e.g., DCIS/LCIS)"},
+      {"id": "M07", "name": "Margin Status Assessment (Ink/Edge-Dependent)"},
+      {"id": "M08", "name": "Lymphovascular Invasion (LVI) Assessment"},
+      {"id": "M09", "name": "Perineural Invasion (PNI) Assessment"},
+      {"id": "M10", "name": "Microcalcifications Assessment"},
+      {"id": "M11", "name": "Benign / Non-neoplastic Background Changes"}
+    ],
+    "metadata_class": [
+      {"id": "MD01", "name": "Specimen / Procedure / Site / Sampling Metadata"},
+      {"id": "MD02", "name": "Tumor Size / Extent / Stage Elements (Metadata + WSI Proxy)"}
+    ],
+    "prediction_class": [
+      {"id": "P01", "name": "IHC / Biomarker / Outcome Prediction (Unified Proxy Prediction)"}
+    ]
+  },
+  "router_concepts": [
+    {
+      "id": "M01_Tumor_Presence_Distribution_Focality",
+      "name": "Tumor Presence & Distribution",
+      "desc": "Tumor presence/focality with existing weak morphology proxy.",
+      "target_signals": ["SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M02_Histological_Tumor_Type_Coarse",
+      "name": "Histological Tumor Type (Coarse)",
+      "desc": "Coarse pattern typing using available architecture signals.",
+      "target_signals": ["SIG103__TUBULE_FORMATION_LOW", "SIG111__DCIS_PRESENT", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M03_Tumor_Grade_Generic",
+      "name": "Tumor Grade (Generic Components)",
+      "desc": "Grade-oriented routing.",
+      "target_signals": ["SIG101__NUCLEAR_PLEOMORPHISM_HIGH", "SIG102__MITOTIC_ACTIVITY_HIGH", "SIG103__TUBULE_FORMATION_LOW", "SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M04_Necrosis_Assessment",
+      "name": "Necrosis Assessment",
+      "desc": "Necrosis related routing.",
+      "target_signals": ["SIG132__TUMOR_NECROSIS_PRESENT", "SIG112__DCIS_COMEDO_NECROSIS"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M05_Inflammation_TILs_Assessment",
+      "name": "Inflammation / TILs Assessment",
+      "desc": "No dedicated current signal; rely on local evidence/view context.",
+      "target_signals": [],
+      "target_levels": ["evidence", "view", "global"],
+      "task_layer": "WSI_SPATIAL_MULTI_SCALE"
+    },
+    {
+      "id": "M06_InSitu_Component_Assessment",
+      "name": "In-situ Component (DCIS-like)",
+      "desc": "In-situ architecture and comedo-necrosis routing.",
+      "target_signals": ["SIG111__DCIS_PRESENT", "SIG112__DCIS_COMEDO_NECROSIS", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M07_Margin_Status_Assessment",
+      "name": "Margin Status",
+      "desc": "Margin-related routing.",
+      "target_signals": ["SIG141__MARGIN_TUMOR_CLOSE", "SIG142__MARGIN_TUMOR_INVOLVED"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M08_LVI_Assessment",
+      "name": "LVI Assessment",
+      "desc": "Lymphovascular invasion routing.",
+      "target_signals": ["SIG121__LYMPHOVASCULAR_INVASION_PRESENT"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M09_PNI_Assessment",
+      "name": "PNI Assessment",
+      "desc": "No dedicated current signal; rely on local evidence/view context.",
+      "target_signals": [],
+      "target_levels": ["evidence", "view", "global"],
+      "task_layer": "WSI_SPATIAL_MULTI_SCALE"
+    },
+    {
+      "id": "M10_Microcalcifications_Assessment",
+      "name": "Microcalcifications Assessment",
+      "desc": "Microcalcification routing.",
+      "target_signals": ["SIG131__MICROCALCIFICATION_PRESENT"],
+      "target_levels": ["signal", "evidence", "view", "global"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "M11_Benign_Nonneoplastic_Background_Weak",
+      "name": "Benign/Background Changes (Weak)",
+      "desc": "No dedicated current benign-background signal.",
+      "target_signals": [],
+      "target_levels": ["evidence", "view", "global"],
+      "task_layer": "WSI_SPATIAL_MULTI_SCALE"
+    },
+    {
+      "id": "MD01_Specimen_Procedure_Site_Sampling_Metadata",
+      "name": "Specimen/Procedure/Site Metadata",
+      "desc": "Metadata-centric question class.",
+      "target_signals": [],
+      "target_levels": ["global"],
+      "task_layer": "WSI_GLOBAL_ONLY"
+    },
+    {
+      "id": "MD02_Tumor_Size_Extent_Stage_Metadata_plus_WSIProxy",
+      "name": "Tumor Size/Extent/Stage",
+      "desc": "Metadata + weak WSI proxy.",
+      "target_signals": ["SIG141__MARGIN_TUMOR_CLOSE"],
+      "target_levels": ["global", "evidence"],
+      "task_layer": "WSI_HIERARCHICAL"
+    },
+    {
+      "id": "P01_IHC_Biomarker_Outcome_Unified_Proxy_Prediction",
+      "name": "IHC/Biomarker/Outcome Proxy",
+      "desc": "Proxy prediction class from morphology evidence.",
+      "target_signals": ["SIG101__NUCLEAR_PLEOMORPHISM_HIGH", "SIG102__MITOTIC_ACTIVITY_HIGH", "SIG103__TUBULE_FORMATION_LOW", "SIG104__TUMOR_GRADE_HIGH_SUPPORT", "SIG132__TUMOR_NECROSIS_PRESENT", "SIG111__DCIS_PRESENT", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "target_levels": ["signal", "evidence", "global"],
+      "task_layer": "WSI_PROXY_SIGNAL_EVIDENCE"
+    }
+  ],
+  "concept_signal_relations_v2": {
+    "M01_Tumor_Presence_Distribution_Focality": {
+      "supports": ["SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "qc": []
+    },
+    "M02_Histological_Tumor_Type_Coarse": {
+      "requires": ["SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "supports": ["SIG103__TUBULE_FORMATION_LOW", "SIG111__DCIS_PRESENT", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "qc": []
+    },
+    "M03_Tumor_Grade_Generic": {
+      "requires": ["SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "supports": ["SIG101__NUCLEAR_PLEOMORPHISM_HIGH", "SIG102__MITOTIC_ACTIVITY_HIGH", "SIG103__TUBULE_FORMATION_LOW", "SIG104__TUMOR_GRADE_HIGH_SUPPORT"],
+      "qc": []
+    },
+    "M04_Necrosis_Assessment": {
+      "supports": ["SIG132__TUMOR_NECROSIS_PRESENT", "SIG112__DCIS_COMEDO_NECROSIS"],
+      "qc": []
+    },
+    "M05_Inflammation_TILs_Assessment": {
+      "supports": [],
+      "qc": []
+    },
+    "M06_InSitu_Component_Assessment": {
+      "supports": ["SIG111__DCIS_PRESENT", "SIG112__DCIS_COMEDO_NECROSIS", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "qc": []
+    },
+    "M07_Margin_Status_Assessment": {
+      "supports": ["SIG141__MARGIN_TUMOR_CLOSE", "SIG142__MARGIN_TUMOR_INVOLVED"],
+      "qc": []
+    },
+    "M08_LVI_Assessment": {
+      "supports": ["SIG121__LYMPHOVASCULAR_INVASION_PRESENT"],
+      "qc": []
+    },
+    "M09_PNI_Assessment": {
+      "supports": [],
+      "qc": []
+    },
+    "M10_Microcalcifications_Assessment": {
+      "supports": ["SIG131__MICROCALCIFICATION_PRESENT"],
+      "qc": []
+    },
+    "M11_Benign_Nonneoplastic_Background_Weak": {
+      "supports": [],
+      "qc": []
+    },
+    "MD01_Specimen_Procedure_Site_Sampling_Metadata": {
+      "supports": [],
+      "qc": []
+    },
+    "MD02_Tumor_Size_Extent_Stage_Metadata_plus_WSIProxy": {
+      "supports": ["SIG141__MARGIN_TUMOR_CLOSE"],
+      "qc": []
+    },
+    "P01_IHC_Biomarker_Outcome_Unified_Proxy_Prediction": {
+      "supports": ["SIG101__NUCLEAR_PLEOMORPHISM_HIGH", "SIG102__MITOTIC_ACTIVITY_HIGH", "SIG103__TUBULE_FORMATION_LOW", "SIG104__TUMOR_GRADE_HIGH_SUPPORT", "SIG132__TUMOR_NECROSIS_PRESENT", "SIG111__DCIS_PRESENT", "SIG113__DCIS_ARCH_SOLID_CRIBRIFORM"],
+      "qc": []
+    }
+  }
+}

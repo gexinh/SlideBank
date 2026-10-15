@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-labelledby="title desc">
+<title id="title">SlideBank conceptual overview</title>
+<desc id="desc">Question-independent exploration builds a persistent bank of global, regional, and patch evidence. Questions retrieve observations linked to their visual provenance. This diagram is a repository illustration, not the paper's main figure.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10" fill="none" stroke="#6b7789" stroke-width="1.5"/></marker></defs>
+<rect width="1280" height="380" rx="18" fill="#f5f7fb"/>
+<g font-family="Arial, sans-serif" fill="#182b42">
+<text x="40" y="43" font-size="14" letter-spacing="2" fill="#5b6c80">SLIDEBANK · CONCEPTUAL OVERVIEW</text>
+<g fill="white" stroke="#dce3ed"><rect x="40" y="82" width="300" height="215" rx="12"/><rect x="403" y="82" width="390" height="215" rx="12"/><rect x="856" y="82" width="384" height="215" rx="12"/></g>
+<text x="64" y="118" font-size="21" font-weight="bold">Explore a whole slide</text>
+<text x="64" y="144" font-size="14" fill="#65768a">Question-independent, coarse to fine</text>
+<g stroke="#9aaabd" fill="#e8eef6"><rect x="65" y="169" width="98" height="98" rx="5"/><path d="M98 169V267M131 169V267M65 202H163M65 235H163"/></g>
+<rect x="99" y="203" width="31" height="31" rx="2" fill="#a3c4dd"/><path d="M180 212H208" stroke="#6b7789" marker-end="url(#arrow)"/>
+<rect x="222" y="176" width="89" height="36" rx="5" fill="#d8e9f4"/><rect x="222" y="225" width="89" height="36" rx="5" fill="#e4def2"/>
+<text x="237" y="199" font-size="13">Region</text><text x="239" y="248" font-size="13">Patches</text>
+<path d="M354 189H388M807 189H841" stroke="#6b7789" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="428" y="118" font-size="21" font-weight="bold">Retain grounded evidence</text>
+<text x="428" y="144" font-size="14" fill="#65768a">A persistent bank for each slide</text>
+<g font-size="15"><rect x="429" y="169" width="338" height="29" rx="5" fill="#dceaf4"/><text x="444" y="189">Global overview</text><rect x="429" y="207" width="338" height="29" rx="5" fill="#e6e1f3"/><text x="444" y="227">Regional observations</text><rect x="429" y="245" width="338" height="29" rx="5" fill="#ddefe9"/><text x="444" y="265">Patch views + concept signals</text></g>
+<text x="880" y="118" font-size="21" font-weight="bold">Reuse across questions</text>
+<text x="880" y="144" font-size="14" fill="#65768a">Retrieve observations with provenance</text>
+<g stroke="#dce3ed" fill="#f7f9fc"><rect x="880" y="169" width="335" height="42" rx="6"/><rect x="880" y="225" width="335" height="42" rx="6"/></g>
+<text x="897" y="195" font-size="15">Question → signal-guided retrieval</text><text x="897" y="251" font-size="15">Linked images + grounded context</text>
+<text x="40" y="344" font-size="14" fill="#65768a">Repository illustration · The paper main figure will replace this asset when supplied.</text>
+</g></svg>

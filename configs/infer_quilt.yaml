@@ -1,0 +1,33 @@
+# Requires a local Quilt-LLaVA checkout configured via this environment variable.
+# Pre-download weights, or change model_path to your local snapshot directory.
+dataset:
+  csv_path: data/questions.csv
+  svs_root: data/slides
+  svs_pattern: "**/*.svs"
+  thumbnail_root: data/thumbnails
+
+bank:
+  persist_dir: outputs/memory_bank
+  artifact_dir: outputs/memory_bank/artifacts
+
+vlm:
+  backend: quilt_llava
+  model_path: wisdomik/Quilt-Llava-v1.5-7b
+  quilt_llava_repo: ${SLIDEBANK_QUILT_LLAVA_REPO}
+  device_map: auto
+  dtype: fp16
+  max_new_tokens: 256
+
+retrieval:
+  signal_topk: 4
+  signal_views_per_signal: 2
+  signal_context_max_chars: 3200
+  region_topk: 2
+  detail_topk: 2
+  anchor_topk: 2
+
+output:
+  mode: single
+  max_samples: 1
+  jsonl: outputs/quilt_predictions.jsonl
+  summary: outputs/quilt_summary.json

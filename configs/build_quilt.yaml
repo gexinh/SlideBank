@@ -1,0 +1,30 @@
+# Requires your local Quilt-LLaVA source checkout and its upstream dependencies.
+# Set SLIDEBANK_QUILT_LLAVA_REPO to that checkout before loading this config.
+# Pre-download the checkpoint into the Hugging Face cache, or replace model_path
+# with its local snapshot directory. Nothing is downloaded during CLI --help.
+dataset:
+  csv_path: data/questions.csv
+  svs_root: data/slides
+  svs_pattern: "**/*.svs"
+
+bank:
+  persist_dir: outputs/memory_bank
+  artifact_dir: outputs/memory_bank/artifacts
+  max_slides: 1
+  rebuild: false
+  force_ingest: false
+  use_llm_patch_describer: true
+  patch_description_strict: true
+  thumbnail_tile_size: 384
+  anchor_crop_size_level0: 4096
+  patch_crop_size_level0: 512
+
+patch_vlm:
+  backend: local_hf
+  model_name: wisdomik/Quilt-Llava-v1.5-7b
+  model_path: wisdomik/Quilt-Llava-v1.5-7b
+  quilt_llava_repo: ${SLIDEBANK_QUILT_LLAVA_REPO}
+  device_map: auto
+  dtype: fp16
+  batch_size: 32
+  max_new_tokens: 224

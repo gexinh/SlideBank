@@ -1,0 +1,3 @@
+# Browser workbench and WSI processing; local GPU models and Gemini are optional.
+# For a hosted OpenAI-compatible model this is sufficient.
+-e .[ui,wsi]

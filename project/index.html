@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SlideBank: a persistent hierarchical evidence bank for consistent whole-slide reasoning. Paper, code, and an interactive evidence viewer.">
+  <title>SlideBank · Whole-slide evidence, retained.</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23172c45'/%3E%3Cpath d='M15 21h34M15 32h34M15 43h34' stroke='%23a9d7cb' stroke-width='6'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="config.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <header class="nav"><a class="brand" href="#">▤ <span>SlideBank</span></a><nav aria-label="Main navigation"><a href="#method">Method</a><a href="#explore">Evidence viewer</a><a href="#workbench">Workbench</a><a href="#citation">Citation</a><a href="https://github.com/gexinh/SlideBank">GitHub ↗</a></nav></header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="dot"></span> ACCEPTED AT WACV</div>
+      <h1>Whole-slide evidence,<br><em>retained.</em></h1>
+      <p class="paper-title">SlideBank: A Persistent Hierarchical Evidence Bank<br class="desktop"> for Consistent Whole-Slide Reasoning</p>
+      <p class="authors">Beidi Zhao · Gexin Huang · Ciro Zhang · Anqi Li · Yusheng Tan<br>Chen Zhou · Gang Wang · Zu-hua Gao · Xiaoxiao Li</p>
+      <div class="actions"><a class="button primary" href="https://arxiv.org/abs/2609.00342">Read the paper ↗</a><a class="button" href="https://github.com/gexinh/SlideBank">Code ↗</a><a class="button" href="#explore">Explore an evidence bank ↓</a></div>
+      <p class="hero-note">Training-free exploration · Concept-indexed observations · Spatial provenance</p>
+    </section>
+    <section id="method" class="section method">
+      <div class="section-head"><div><p class="eyebrow">FROM EXPLORATION TO REUSE</p><h2>A memory of what the slide shows.</h2></div><p>Explore once. Retain observations and their supporting views. Retrieve relevant evidence when a new question arrives.</p></div>
+      <figure><img id="main-figure" src="assets/overview.svg" alt="SlideBank conceptual overview: explore a whole slide, retain grounded evidence, and reuse it across questions."><figcaption id="figure-caption">Conceptual repository illustration. The paper main figure will appear here when supplied.</figcaption></figure>
+      <div class="method-cards"><article><span>01 / EXPLORE</span><h3>Build without a question</h3><p>Coarse-to-fine exploration identifies informative regions and multi-scale patch views.</p></article><article><span>02 / RETAIN</span><h3>Keep the visual connection</h3><p>Morphological observations and concept signals stay linked to patches and whole-slide coordinates.</p></article><article><span>03 / REUSE</span><h3>Return to the evidence</h3><p>Related questions can access the same slide-specific bank instead of restarting exploration.</p></article></div>
+    </section>
+    <section id="explore" class="section explorer">
+      <div class="section-head"><div><p class="eyebrow">INTERACTIVE EVIDENCE VIEWER</p><h2>From the whole slide to a patch.</h2></div><p>Open an exported evidence tree to browse the hierarchy below. Files stay in your browser; this viewer makes no model calls.</p></div>
+      <div class="toolbar"><label class="button primary file-button">Open evidence JSON<input id="tree-file" type="file" accept=".json,application/json"></label><label class="button file-button">Add image folder<input id="image-folder" type="file" webkitdirectory multiple></label><button id="clear-data" type="button" class="button">Clear</button><span id="viewer-status" role="status" aria-live="polite">Load a .ui_tree.json exported by SlideBank.</span></div>
+      <div class="viewer-grid">
+        <article class="viewer-panel"><div class="panel-title"><span>01</span><h3>Global slide overview</h3></div><div id="global-image" class="image-slot"><span>No slide loaded</span></div><div id="slide-info" class="panel-copy"><p>Global observations and regions appear here.</p></div><div id="tile-list" class="choice-list" aria-label="Regions"></div></article>
+        <article class="viewer-panel"><div class="panel-title"><span>02</span><h3>Selected region</h3></div><div id="region-image" class="image-slot"><span>Select a region</span></div><div id="region-info" class="panel-copy"><p>Inspect its description and choose an anchor.</p></div><div id="anchor-list" class="choice-list" aria-label="Anchors"></div></article>
+        <article class="viewer-panel"><div class="panel-title"><span>03</span><h3>Anchor patch views</h3></div><div id="patch-content" class="patch-content"><div class="image-slot"><span>Select an anchor</span></div><p class="panel-copy">Multi-scale views and their screened signals appear here.</p></div></article>
+      </div>
+      <details class="usage"><summary>How to open your evidence</summary><p>Export with <code>python scripts/export_ui_tree.py --bank-dir outputs/memory_bank</code>, then open one of the generated <code>*.ui_tree.json</code> files. To display images, select the local artifact folder containing the referenced PNG/JPEG files. Duplicate basenames are matched by their folder suffix; unresolved images are shown as missing. Server paths in the JSON are never fetched.</p><p>This browser provides evidence inspection. Building a bank and asking model-backed questions use the Python workbench below.</p></details>
+    </section>
+    <section id="workbench" class="section workbench">
+      <div class="section-head"><div><p class="eyebrow">THE V5 WORKBENCH</p><h2>Explore, retrieve, and ask.</h2></div><p>The full Gradio interface connects bank construction, hierarchical evidence inspection, and grounded questions to your configured model.</p></div>
+      <div id="local-workbench" class="local-workbench"><div><h3>Run the interactive workbench</h3><p>Use your own slides or exported bank, then select a local model or API endpoint in the interface.</p><a href="https://github.com/gexinh/SlideBank/blob/main/docs/WORKBENCH.md">Workbench setup guide ↗</a></div><pre><code>python -m pip install -e ".[ui]"
+python app.py
+# Open http://127.0.0.1:7864</code></pre></div>
+      <div id="hosted-workbench" hidden><a id="demo-link" class="button" target="_blank" rel="noopener noreferrer">Open workbench in a new tab ↗</a><iframe id="demo-frame" title="SlideBank interactive workbench" loading="lazy" referrerpolicy="no-referrer"></iframe></div>
+      <p class="scope-note">This release includes the latest clean backend and V5 interface. The batch CLI and V5 interface use different inference paths; benchmark reproduction for this release has not been run. See the <a href="https://github.com/gexinh/SlideBank">repository</a> for implementation details.</p>
+    </section>
+    <section id="citation" class="section citation"><div class="section-head"><div><p class="eyebrow">REFERENCE</p><h2>Cite SlideBank.</h2></div><button id="copy-citation" class="button" type="button">Copy BibTeX</button></div><pre><code id="bibtex">@article{zhao2026slidebank,
+  title={SlideBank: A Persistent Hierarchical Evidence Bank for Consistent Whole-Slide Reasoning},
+  author={Zhao, Beidi and Huang, Gexin and Zhang, Ciro and Li, Anqi and Tan, Yusheng and Zhou, Chen and Wang, Gang and Gao, Zu-hua and Li, Xiaoxiao},
+  journal={arXiv preprint arXiv:2609.00342},
+  year={2026},
+  doi={10.48550/arXiv.2609.00342},
+  url={https://arxiv.org/abs/2609.00342}
+}</code></pre><p id="copy-status" role="status" aria-live="polite"></p></section>
+  </main>
+  <footer><a class="brand" href="#">▤ SlideBank</a><span>Persistent evidence for whole-slide reasoning.</span><a href="https://arxiv.org/abs/2609.00342">arXiv ↗</a></footer>
+</body>
+</html>

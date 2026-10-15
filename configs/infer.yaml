@@ -1,0 +1,37 @@
+# The batch CLI uses the clean backend's tool-context retrieval flow.
+# The interactive workbench uses the later policy/router/compact-context flow.
+dataset:
+  csv_path: data/questions.csv
+  svs_root: data/slides
+  svs_pattern: "**/*.svs"
+  thumbnail_root: data/thumbnails
+
+bank:
+  persist_dir: outputs/memory_bank
+  artifact_dir: outputs/memory_bank/artifacts
+
+vlm:
+  backend: api
+  api_provider: openai_compatible
+  api_base_url: http://127.0.0.1:8000/v1
+  api_key_env: OPENAI_API_KEY
+  # Set this to the vision model served by your endpoint.
+  model: your-vision-model
+  # Local workbench preset uses this independent local checkpoint setting.
+  local_model_path: wisdomik/Quilt-Llava-v1.5-7b
+  max_new_tokens: 1024
+  api_timeout_sec: 300
+
+retrieval:
+  signal_topk: 4
+  signal_views_per_signal: 2
+  signal_context_max_chars: 3200
+  region_topk: 2
+  detail_topk: 2
+  anchor_topk: 2
+
+output:
+  mode: single
+  max_samples: 1
+  jsonl: outputs/predictions.jsonl
+  summary: outputs/summary.json

@@ -1,0 +1,30 @@
+# Paths are relative to the working directory. Run commands from the repository root.
+# Supply your own CSV and slides; no dataset or model weights ship in this repository.
+dataset:
+  csv_path: data/questions.csv
+  svs_root: data/slides
+  svs_pattern: "**/*.svs"
+
+bank:
+  persist_dir: outputs/memory_bank
+  artifact_dir: outputs/memory_bank/artifacts
+  max_slides: 1
+  rebuild: false
+  force_ingest: false
+  use_llm_patch_describer: true
+  patch_description_strict: true
+  thumbnail_tile_size: 384
+  anchor_crop_size_level0: 4096
+  patch_crop_size_level0: 512
+
+patch_vlm:
+  backend: api
+  api_provider: openai_compatible
+  # Start a compatible vision server, or replace its endpoint and model below.
+  api_base_url: http://127.0.0.1:8000/v1
+  api_key_env: OPENAI_API_KEY
+  model_name: your-vision-model
+  model_path: your-vision-model
+  batch_size: 1
+  max_new_tokens: 224
+  api_timeout_sec: 300
