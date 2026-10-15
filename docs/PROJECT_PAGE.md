@@ -6,10 +6,14 @@ The static project page and Python workbench serve complementary roles:
 - `app.py`: a Gradio workbench for bank building, evidence browsing,
   and model-backed question answering.
 
-The static evidence viewer opens `slidebank-ui-tree-v1` JSON and optionally a
-local image folder. It can inspect real exports without running Python or
-calling a model. Imported files are read in the browser and are not sent to a
-server.
+The evidence viewer automatically opens an included slide example. It loads a
+published evidence tree and derived images, so visitors can inspect the global
+overview, choose a region, and browse anchor patches immediately. Browsing
+requires no model inference.
+
+The **Your own evidence** section opens `slidebank-ui-tree-v1` JSON and an
+optional local image folder. Imported files stay in the browser. The viewer
+does not request server paths from an imported JSON file.
 
 ## Preview
 
@@ -17,11 +21,14 @@ server.
 python -m http.server --directory project 8080
 ```
 
-Open <http://127.0.0.1:8080>. Select **Open evidence JSON**, then optionally
-**Add image folder**. Choose a region and an anchor to inspect patch views and
-signals. The viewer supports captions and coordinates without image files.
-Images with ambiguous file matches stay unresolved. **Clear** discards the
-current tree and releases image object URLs.
+Open <http://127.0.0.1:8080>. The default example opens automatically; use the
+sample selector and **Reset example** to return to it. Click a region and an
+anchor to inspect patch views, signals, and coordinates.
+
+For a local export, expand **Your own evidence**, select **Open evidence JSON**,
+then **Add image folder**. Images with ambiguous file matches stay unresolved.
+**Clear** discards imported data and releases image object URLs. See the
+[demo data guide](../demos/README.md) for the included slide's provenance.
 
 ## GitHub Pages
 
@@ -36,16 +43,17 @@ The application uses relative asset paths so it works under `/SlideBank/`.
 
 ## Attach a hosted workbench
 
-Deploy `app.py` on a Python host with your intended data and runtime resources.
-Use [WORKBENCH.md](WORKBENCH.md) for paths, credentials, and local model setup.
-For an external host, set `SLIDEBANK_HOST=0.0.0.0` and the service's assigned
-port. Follow the host's own dependency and storage requirements.
+The [SlideBank Space](https://huggingface.co/spaces/gexinh/SlideBank) runs the
+Python workbench separately from GitHub Pages. See [HOSTING.md](HOSTING.md) for
+the hosted model, ZeroGPU runtime, and deployment files. The page embeds this
+workbench and provides a direct-open link.
 
 Set the deployed HTTPS URL in `project/config.js`:
 
 ```javascript
 window.SLIDEBANK_CONFIG = Object.freeze({
-  demoUrl: "https://your-hosted-workbench.example",
+  demoUrl: "https://gexinh-slidebank.hf.space",
+  qaEnabled: true,
   mainFigure: "main-figure.png"
 });
 ```
@@ -62,3 +70,12 @@ preparation script keeps it set to `main-figure.png`.
 See [assets/README.md](../assets/README.md). The figure preparation script
 synchronizes the original PDF and web PNG into both asset directories. Both the
 README and static HTML use the paper figure directly.
+
+## Included example assets
+
+`demos/manifest.json` lists the example evidence tree and its exact image paths.
+The project page uses the matching files in `project/demos/`; the retrieval bank
+is required by the Python workbench and is not served by the static viewer.
+Keep the manifest, evidence tree, and derived images together when updating an
+example. The viewer accepts only the manifest's same-origin image paths for
+published examples; imported trees use local files instead.

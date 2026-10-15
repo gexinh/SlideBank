@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://arxiv.org/abs/2609.00342"><img src="https://img.shields.io/badge/Paper-arXiv-B31B1B?logo=arxiv&amp;logoColor=white" alt="Read the paper on arXiv"></a>
   <a href="https://gexinh.github.io/SlideBank/"><img src="https://img.shields.io/badge/Project%20Page-Visit-256D5B?logo=googlechrome&amp;logoColor=white" alt="Visit the project page"></a>
-  <a href="#interactive-workbench"><img src="https://img.shields.io/badge/Workbench-Gradio-F97316?logo=gradio&amp;logoColor=white" alt="Open the workbench guide"></a>
+  <a href="https://huggingface.co/spaces/gexinh/SlideBank"><img src="https://img.shields.io/badge/Live%20Demo-Hugging%20Face-FFCC4D?logo=huggingface&amp;logoColor=black" alt="Open the SlideBank workbench on Hugging Face"></a>
   <a href="#citation"><img src="https://img.shields.io/badge/Citation-BibTeX-4051B5?logo=googlescholar&amp;logoColor=white" alt="View the BibTeX citation"></a>
   <a href="https://github.com/gexinh/SlideBank/actions/workflows/ci.yml"><img src="https://github.com/gexinh/SlideBank/actions/workflows/ci.yml/badge.svg" alt="Continuous integration status"></a>
 </p>
@@ -38,7 +38,7 @@ python -m pip install -e ".[ui,wsi]"
 
 The `wsi` extra includes OpenSlide's Python bindings and bundled library; if your platform needs a system installation, follow the [OpenSlide installation guide](https://openslide.org/download/). Install `.[local]` for local model inference or `.[gemini]` for the Gemini API. Quilt-LLaVA additionally needs its external runtime repository and model weights; use `configs/build_quilt.yaml` and `configs/infer_quilt.yaml` after setting `SLIDEBANK_QUILT_LLAVA_REPO`.
 
-Model weights, datasets, and precomputed banks are obtained separately.
+The repository includes a small [demonstration evidence bank](demos/README.md). Model weights and additional slide datasets are obtained separately.
 
 ## Build, retrieve, and answer
 
@@ -62,11 +62,15 @@ Use `--help` on each script to inspect runtime overrides. Supported inference ba
 
 ## Interactive workbench
 
+Visit the [project page](https://gexinh.github.io/SlideBank/#explore) to explore a preloaded slide, or open the [Hugging Face workbench](https://huggingface.co/spaces/gexinh/SlideBank) for the Gradio interface. No prepared files are needed for the included example. The hosted model is **Qwen2.5-VL-3B-Instruct**; the demo uses the exported evidence bank and does not rebuild a whole slide for each question. See [hosting and model details](docs/HOSTING.md).
+
+To browse the same example locally:
+
 ```bash
-python app.py
+python space_app.py
 ```
 
-Open **http://127.0.0.1:7864**, configure a model, and load an exported evidence bank to browse global, regional, and patch views or ask a question. For a remote server, forward port 7864 through SSH or your editor. See the [workbench guide](docs/WORKBENCH.md) for runtime and data configuration.
+Open **http://127.0.0.1:7860**. To configure your own model, build banks, or load additional slides, run `python app.py` and open **http://127.0.0.1:7864**. See the [workbench guide](docs/WORKBENCH.md) for data and runtime configuration.
 
 Choose an entry point for interactive questions or batch evaluation:
 
@@ -77,22 +81,25 @@ Choose an entry point for interactive questions or batch evaluation:
 
 ## Project page
 
-The [project page](https://gexinh.github.io/SlideBank/) includes an evidence viewer for exported JSON and local images. To run the site locally:
+The [project page](https://gexinh.github.io/SlideBank/) opens a preloaded evidence hierarchy, with global, regional, and patch views. Browsing it runs in your browser. **Your own evidence** also accepts exported JSON and local images. To run the site locally:
 
 ```bash
 python -m http.server --directory project 8080
 ```
 
-Open **http://127.0.0.1:8080**. Model inference runs through the Python workbench. See the [hosting guide](docs/PROJECT_PAGE.md) to connect a hosted workbench to the page.
+Open **http://127.0.0.1:8080**. Use the embedded Gradio workbench for model inference. See the [project-page guide](docs/PROJECT_PAGE.md) for deployment and the boundary between browser browsing and hosted inference.
 
 ## Repository layout
 
 ```text
 app.py          Interactive workbench
+space_app.py    Hosted workbench with the included slide example
 slidebank/      Bank construction, retrieval, VLM adapters, and UI support
 scripts/        Build, inference, UI-tree export, and figure preparation
 configs/        Portable configuration templates
 project/        Static project page
+demos/          Portable example bank, evidence tree, and derived slide images
+hf_space/       Hugging Face Space metadata and dependencies
 assets/         Original paper main figure and web preview
 docs/           Data, workbench, hosting, and source guides
 ```

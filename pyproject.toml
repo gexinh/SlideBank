@@ -31,11 +31,20 @@ local = [
   "sentencepiece>=0.2,<1",
 ]
 gemini = ["google-genai>=1,<2"]
+hosted = [
+  "gradio==5.34.2",
+  "spaces==0.51.3",
+  "torch==2.8.0",
+  "torchvision==0.23.0",
+  "transformers==4.51.3",
+  "accelerate>=1,<2",
+  "sentencepiece>=0.2,<1",
+]
 dev = ["pytest>=8,<10", "build>=1,<2"]
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["slidebank*"]
+include = ["slidebank*", "hf_space*"]
 
 [tool.setuptools.package-data]
 "slidebank.wsi_agent" = ["signal_ontology.json"]

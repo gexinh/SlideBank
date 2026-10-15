@@ -9,6 +9,16 @@ permissions:
   contents: read
 
 jobs:
+  viewer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+      - name: Test example and local-image isolation
+        run: node --test tests/test_project_viewer.cjs
+
   python:
     runs-on: ubuntu-latest
     strategy:

@@ -289,20 +289,31 @@ def _run_quilt_runtime(runtime: Dict[str, Any], image_path: str, prompt: str, ma
     return tokenizer.decode(output_ids[0, input_ids.shape[1]:], skip_special_tokens=True).strip()
 
 
-def _load_hf_runtime(model_path: str, device_map: str, dtype: str) -> Dict[str, Any]:
+def _load_hf_runtime(
+    model_path: str,
+    device_map: str,
+    dtype: str,
+    *,
+    allow_remote_download: bool = False,
+    max_image_pixels: int = 0,
+) -> Dict[str, Any]:
     import torch
     import transformers as tf
     from transformers import AutoConfig, AutoProcessor
 
     model_path = resolve_model_path(model_path)
     torch_dtype = {"bf16": torch.bfloat16, "fp16": torch.float16, "fp32": torch.float32}.get(dtype)
-    kwargs: Dict[str, Any] = {"trust_remote_code": True, "local_files_only": True}
+    source_kwargs: Dict[str, Any] = {
+        "trust_remote_code": True,
+        "local_files_only": not allow_remote_download,
+    }
+    kwargs: Dict[str, Any] = {**source_kwargs, "low_cpu_mem_usage": True}
     if torch_dtype is not None:
         kwargs["torch_dtype"] = torch_dtype
     if device_map == "auto":
         kwargs["device_map"] = "auto"
 
-    cfg = AutoConfig.from_pretrained(model_path, trust_remote_code=True, local_files_only=True)
+    cfg = AutoConfig.from_pretrained(model_path, **source_kwargs)
     model_type = str(getattr(cfg, "model_type", "") or "").lower()
     candidates = [
         "AutoModelForImageTextToText",
@@ -325,7 +336,11 @@ def _load_hf_runtime(model_path: str, device_map: str, dtype: str) -> Dict[str, 
         raise RuntimeError(f"Failed to load HF VLM model_type={model_type}; recent errors: {' | '.join(errors[-3:])}")
     if device_map != "auto":
         model = model.to(device_map)
-    processor = AutoProcessor.from_pretrained(model_path, trust_remote_code=True, local_files_only=True)
+    model.eval()
+    processor_kwargs = dict(source_kwargs)
+    if max_image_pixels > 0:
+        processor_kwargs["max_pixels"] = int(max_image_pixels)
+    processor = AutoProcessor.from_pretrained(model_path, **processor_kwargs)
     return {"runtime": "local_hf", "model": model, "processor": processor, "device_map": device_map}
 
 
@@ -346,6 +361,11 @@ def _run_hf_runtime(runtime: Dict[str, Any], image_path: str, prompt: str, max_n
         inputs = {k: v.to(runtime["device_map"]) if hasattr(v, "to") else v for k, v in inputs.items()}
     with torch.inference_mode():
         output_ids = model.generate(**inputs, max_new_tokens=int(max_new_tokens), do_sample=False, num_beams=1)
+    # Decoder-only VLMs return the input prefix as well as the answer. Keeping
+    # that prefix makes the V5 router parse its own prompt as a model response.
+    if not getattr(model.config, "is_encoder_decoder", False) and "input_ids" in inputs:
+        prefix_length = inputs["input_ids"].shape[-1]
+        output_ids = [row[prefix_length:] for row in output_ids]
     return processor.batch_decode(output_ids, skip_special_tokens=True)[0].strip()
 
 
@@ -593,6 +613,8 @@ class VLMConfig:
     device_map: str = "auto"
     dtype: str = "fp16"
     max_new_tokens: int = 64
+    allow_remote_download: bool = False
+    max_image_pixels: int = 0
     api_provider: str = ""
     api_key: str = ""
     api_key_env: str = ""
@@ -618,7 +640,13 @@ class VLMClient:
                 self.config.quilt_llava_repo,
             )
         elif backend == "local_hf":
-            self.runtime = _load_hf_runtime(self.config.model_path, self.config.device_map, self.config.dtype)
+            self.runtime = _load_hf_runtime(
+                self.config.model_path,
+                self.config.device_map,
+                self.config.dtype,
+                allow_remote_download=self.config.allow_remote_download,
+                max_image_pixels=self.config.max_image_pixels,
+            )
         elif backend in {"api", "gemini_api", "openai_api", "openai_compatible_api"}:
             provider = _provider_for_backend(backend, self.config.api_provider)
             self.runtime = {"runtime": "api", "provider": provider}

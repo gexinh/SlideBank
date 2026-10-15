@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "slides": {
+    "TCGA-OL-A66P-01Z-00-DX1.5ADD0D6D-37C6-4BC9-8C2B-64DB18BE99B3.svs": {
+      "file": "tcga-ol-a66p.jsonl",
+      "row_count": 356
+    }
+  }
+}

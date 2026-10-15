@@ -1,0 +1,392 @@
+{
+  "schema_version": "slidebank-demo-manifest-v1",
+  "default_demo": "tcga-ol-a66p",
+  "bank_dir": "bank",
+  "samples": [
+    {
+      "id": "tcga-ol-a66p",
+      "label": "TCGA-OL-A66P",
+      "slide_id": "TCGA-OL-A66P-01Z-00-DX1.5ADD0D6D-37C6-4BC9-8C2B-64DB18BE99B3.svs",
+      "tree": "ui_tree/tcga-ol-a66p.ui_tree.json",
+      "images": [
+        "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_grid_overlay.png",
+        "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_selected_patches_overlay_exact.png",
+        "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_tissue_mask.png",
+        "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_tumor_mask.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V2_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V1_10x_10x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V1_20x.png",
+        "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V2_20x.png",
+        "artifacts/tcga-ol-a66p/thumb/TCGA-OL-A66P_thumbnail_1604.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R0C0.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R0C1.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C0.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C1.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C2.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R2C1.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R2C2.png",
+        "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R3C2.png"
+      ],
+      "row_count": 356,
+      "record_levels": {
+        "evidence": 18,
+        "global": 14,
+        "region": 18,
+        "signal": 252,
+        "view": 54
+      },
+      "questions": [
+        "Describe the tissue architecture visible in this slide.",
+        "Which evidence supports the presence or absence of necrosis?"
+      ],
+      "source": {
+        "collection": "TCGA Research Network",
+        "project": "TCGA-BRCA",
+        "access": "open",
+        "gdc_file_id": "5898b4df-56ee-4ae5-8dba-faf255ec5270",
+        "file_url": "https://portal.gdc.cancer.gov/files/5898b4df-56ee-4ae5-8dba-faf255ec5270",
+        "attribution_url": "https://www.cancer.gov/ccg/research/genome-sequencing/tcga/using-tcga-data/citing",
+        "terms_url": "https://gdc.cancer.gov/analyze-data/data-analysis-policies",
+        "source_tree_sha256": "18583733b0d39f015e7fe8f061d67759a9dd014b67454029f819ca2700b9f789",
+        "source_rows_sha256": "6cea06868ab505f3309ce0b59579016f882ae17fd82a7cc95b761b1f9c368682",
+        "evidence": "Original precomputed SlideBank observations; not regenerated by the hosted QA model."
+      }
+    }
+  ],
+  "files": {
+    "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_grid_overlay.png": {
+      "bytes": 2102494,
+      "sha256": "d0567ebd4935718940cf26d389d72cbb2586d7ff8f20e230f34274cb34627bb2"
+    },
+    "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_selected_patches_overlay_exact.png": {
+      "bytes": 2088395,
+      "sha256": "23cbeaec2450771f9a34918bb3a78321e51bf92cdffc8cca5bac408708bff3e9"
+    },
+    "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_tissue_mask.png": {
+      "bytes": 16397,
+      "sha256": "a9f7d0c301374f2fd631275c380880ab7a46a72f76408a2fe23a2a91f3ee0304"
+    },
+    "artifacts/tcga-ol-a66p/debug/TCGA-OL-A66P_tumor_mask.png": {
+      "bytes": 13729,
+      "sha256": "5294c181f373668ceb01c4aca017e734cdcaf266e11096c9295c432c822acf8d"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V1_10x_10x.png": {
+      "bytes": 132369,
+      "sha256": "cdc5c3d3082b1026466f6dcbdabad952beb333fbc3d79b0f6bd2113636243d5a"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V1_20x.png": {
+      "bytes": 114287,
+      "sha256": "4931514162fec7335226db1f6614a255f479bf40787c380c0eb177b74c868c51"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_01_V2_20x.png": {
+      "bytes": 112891,
+      "sha256": "43e826ed990edd6443f5228ab63c4a4df7c2b26ad9f44f2f4d42e499d080db3c"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V1_10x_10x.png": {
+      "bytes": 129997,
+      "sha256": "0c9b9b8b91e7ed836fa44d2a16bdc63c3f730f34b01808230d7624a76ab2cced"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V1_20x.png": {
+      "bytes": 111332,
+      "sha256": "099997f93fc61fecde62d52c6156ee6d5204f4fd571983191c04f3e122556914"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_02_V2_20x.png": {
+      "bytes": 115280,
+      "sha256": "f4d4b5eee9e4c18704fc7eddf65c42e088f730aa571dde0fa8449655ebfa9b76"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V1_10x_10x.png": {
+      "bytes": 124817,
+      "sha256": "0da071811a05caf278358057fb22f2fe369d0fdcd6f7dbf5c02634a494afbd90"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V1_20x.png": {
+      "bytes": 107436,
+      "sha256": "b9ceddf4d20152f35df21d0579f251a5ef9befc5bd68a7fe93fbfcc0e2213dbe"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C0_03_V2_20x.png": {
+      "bytes": 109742,
+      "sha256": "5f8f5b09846b20eb7489b60798b7ea92f17e86605ff64ee72ed5e3f431e99016"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V1_10x_10x.png": {
+      "bytes": 51468,
+      "sha256": "33f701ee1708f72b18c394c7ba6f697b439a06e62b1348f28e486ff5c0ae51db"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V1_20x.png": {
+      "bytes": 107084,
+      "sha256": "be4515d95cf0a28ecda66e59d3d1b122ff3cf9a7040e80c0b103258331356f13"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_01_V2_20x.png": {
+      "bytes": 114327,
+      "sha256": "2be86174e1a95cbed990128c2e3ac2a0b1520a212f0f38c8a0c4a49e5c036610"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V1_10x_10x.png": {
+      "bytes": 36578,
+      "sha256": "a3ce74416c27d8e708d26b872ee79ff45292329ceb99cb2702b71e03b86b833c"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V1_20x.png": {
+      "bytes": 111393,
+      "sha256": "e9f5eb4020b51c78d39304ee09d8aef8b9a4c2e181513b5a37952fa579259ef2"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_02_V2_20x.png": {
+      "bytes": 111437,
+      "sha256": "762c1667b5f97f535bee2797f5d7af1f58ccb358652bfed2cb28e848ae7a563a"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V1_10x_10x.png": {
+      "bytes": 122429,
+      "sha256": "2cf67a9d63b8d4c75dda547d29032165e853e29c2fb5d77cdcbcb8aa50d229fd"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V1_20x.png": {
+      "bytes": 107856,
+      "sha256": "5de480d5eacbc635e39319873a4ba267e2b8fa5058ee3cea9bca6a7ebc240f16"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R0C1_03_V2_20x.png": {
+      "bytes": 31951,
+      "sha256": "6061906ddcf03d056650dd5d3597db9cfee54b4ccb3f48cf7d8e4dec23079597"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V1_10x_10x.png": {
+      "bytes": 128149,
+      "sha256": "6ed9a390cd77aadc31768fe904002e6abc8162ea5361d46d1c87384a5ddcb0d1"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V1_20x.png": {
+      "bytes": 109737,
+      "sha256": "c6c65716a9739e00352283d0587ecb5e24f9261b61413604eba4eed322459acd"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_01_V2_20x.png": {
+      "bytes": 108286,
+      "sha256": "662c991573d4fe5bd6ecaf090f97324e75fffef80a5252a21ff7a8ddfae491f7"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V1_10x_10x.png": {
+      "bytes": 132053,
+      "sha256": "11e0b5eeb4067ded39d8b56028a66fef2527bfcef81d9676c10b19461369d99b"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V1_20x.png": {
+      "bytes": 114779,
+      "sha256": "b493861133bdf364b03f0377b5cdb3e2e80598027028b143b6953925435abd31"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_02_V2_20x.png": {
+      "bytes": 111207,
+      "sha256": "45b5fdec2f45419d1ed4cd4979c8d0304667bc40be1d08001b9d03552bfa8e01"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V1_10x_10x.png": {
+      "bytes": 127970,
+      "sha256": "a4b2500208921710b24abe1c0b2f7017cd0469c0862e74c63b8e05d99a9dc323"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V1_20x.png": {
+      "bytes": 108329,
+      "sha256": "6a9b0b678dcabd05857035f608cbc7e7431da31b6e8b4fe8cdc85d09ae8ef84b"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C0_03_V2_20x.png": {
+      "bytes": 105203,
+      "sha256": "bdd1c22590b71edaa6b83e6e5a442c1c27e8d83e8d73a902762aee954e6d9e4b"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V1_10x_10x.png": {
+      "bytes": 132801,
+      "sha256": "5b8217b82e0ab9c3ed7e3104a76c4a4efb7a39d5a9154a41e857d7d60a174d53"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V1_20x.png": {
+      "bytes": 111833,
+      "sha256": "0001bb4693c620ecb124c734533dee49c19ecb4cc07ccfcb8c8b8c226a566a27"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_01_V2_20x.png": {
+      "bytes": 116005,
+      "sha256": "51d574a28ed3491384fd3a6f1a83397f64e324b0b685d36781c9bc5c809b0d98"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V1_10x_10x.png": {
+      "bytes": 126476,
+      "sha256": "826471c2a18c76ca2872c8c9995e3fb9634ab6b89f99ba9cf43c1a8e38cccfb2"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V1_20x.png": {
+      "bytes": 109804,
+      "sha256": "1164b317097705ab2b64f00348e28a8a55864e1c2b5535b94b00c05708dde4ed"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_02_V2_20x.png": {
+      "bytes": 109027,
+      "sha256": "2af1e8231f45cdf115ed9d39cd54255736ccb16a100f9670a485fe101805faf8"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V1_10x_10x.png": {
+      "bytes": 133671,
+      "sha256": "f6242526b3cfb5cb8336017e6fc251e403d85e74b077321fae5dc57005c7ef53"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V1_20x.png": {
+      "bytes": 112249,
+      "sha256": "59b423451cdd13eb27ae75be27a59b1a4247ee5b80c406c1fe9d86abd47f754d"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R1C1_03_V2_20x.png": {
+      "bytes": 111406,
+      "sha256": "f93818bb8c2212bc9cfdbc71bfd705e626c20641d5e3d2c3769d6e44d17d6288"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V1_10x_10x.png": {
+      "bytes": 134251,
+      "sha256": "cf7e8c185684c3d98668eb6f97244b5e5d255d9df9ef0e29804c4fd3bc12c58f"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V1_20x.png": {
+      "bytes": 114301,
+      "sha256": "4180dc204d41f0a3387a30ab6b4cd941d3e393b4a8ac9e9f8cea2262e2ba5641"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_01_V2_20x.png": {
+      "bytes": 115154,
+      "sha256": "2e06c665067418d95c849070e30764d8ed39e3afcf5875762eb0c5fc41c20dd9"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V1_10x_10x.png": {
+      "bytes": 135313,
+      "sha256": "ac1b9791fd1926eb3a4ef1980822e3f53becd5959a6e4b2a3701e4eb0e6e6467"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V1_20x.png": {
+      "bytes": 115522,
+      "sha256": "409df5744a96cf3312a866a9d5bf118c62adfc932f96e4a8abc5b7e7164dac92"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_02_V2_20x.png": {
+      "bytes": 113895,
+      "sha256": "bf5702898f89d17b042f2f3059230ff9ec163611cd0fe45382a2934739a5d193"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V1_10x_10x.png": {
+      "bytes": 130682,
+      "sha256": "84124902ac821932bb8b3571285e0d4539ac868e82cc409fe50fd87d002b9449"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V1_20x.png": {
+      "bytes": 113775,
+      "sha256": "386b65e0ee586d27d0255489896e95e60246500c6332b1d56ec7428dfa269aee"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R2C1_03_V2_20x.png": {
+      "bytes": 113652,
+      "sha256": "3f624fed04b05fe36178ecc02ed7b6a81c737a203b808d73ef4bf5fa7627abe4"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V1_10x_10x.png": {
+      "bytes": 65051,
+      "sha256": "182994240d935516ea776d5f92f0b5a0074335c2b0ded2fbec8f5e89b0567035"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V1_20x.png": {
+      "bytes": 50898,
+      "sha256": "491d1193cee22ce2fa507788300143062ccf1c540e758a79616be8dd8b621af3"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_01_V2_20x.png": {
+      "bytes": 67652,
+      "sha256": "754fd638218b604295d954499835e908a9a5c8b95511ec10d533e965a22fd0af"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V1_10x_10x.png": {
+      "bytes": 79649,
+      "sha256": "9acfac31d670f078c707b96f8c7441b518d7213b2c463c6c2c9a8ebd4e555b4e"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V1_20x.png": {
+      "bytes": 66681,
+      "sha256": "ff5392f00940213b50554693470b525f68463a2df0e6e2a8ed2d4df6313d6d96"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_02_V2_20x.png": {
+      "bytes": 106579,
+      "sha256": "8dd2126026c33f02ccc052bc7dc3670ca91ea1f60c597fd0f7249c1bbfe7b16c"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V1_10x_10x.png": {
+      "bytes": 75121,
+      "sha256": "ad95b45631b4a20fa4b9866ecf45c02ea60a5fa31add204077384d277daa0b80"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V1_20x.png": {
+      "bytes": 77198,
+      "sha256": "544987432285b059c4e8ebdaf851273bcf37655b0e0b756c204eebeafa6bd1ab"
+    },
+    "artifacts/tcga-ol-a66p/patches/TCGA-OL-A66P_A_R3C2_03_V2_20x.png": {
+      "bytes": 91772,
+      "sha256": "3509317510d69b1689729acbbb3ffb38daa68f38ebde3a446a6ab4de98ccc887"
+    },
+    "artifacts/tcga-ol-a66p/thumb/TCGA-OL-A66P_thumbnail_1604.png": {
+      "bytes": 2107401,
+      "sha256": "34dc39412378f1e00277de80a8fabd21624c271db1bbe5589348e55b1c0d9618"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R0C0.png": {
+      "bytes": 235722,
+      "sha256": "7af68a8e50761224c39ebb12322d803f807cd9ff8faf5f7da9909e34a28d9d5d"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R0C1.png": {
+      "bytes": 118505,
+      "sha256": "1b9b6f9b024a45744b72d0c9e26d7056b66f6f1057d0e17bf59851effd44ffad"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C0.png": {
+      "bytes": 226942,
+      "sha256": "418edc145b670d399e1ae8c2eeb8a2faee4b5c73d74c9197e520afdeb74ca05f"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C1.png": {
+      "bytes": 350838,
+      "sha256": "bcd41bdeb68b7dc9e79f6957c2df1223c68354adabb3f6ab29410653651ab34b"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R1C2.png": {
+      "bytes": 219657,
+      "sha256": "9795e4cb73a277a89f0d7ea85c9b7bb484a1971f1ec4a697921ce19b306ac166"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R2C1.png": {
+      "bytes": 287142,
+      "sha256": "8f552a55719130d6047db6a30bc3e5246d316828ca84560554a20f2359ab2087"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R2C2.png": {
+      "bytes": 285198,
+      "sha256": "088be977a1e46812025fd8fd06d3ae67352bc93ed51f14ae4d48f90e37af42d2"
+    },
+    "artifacts/tcga-ol-a66p/tiles/TCGA-OL-A66P_R3C2.png": {
+      "bytes": 183382,
+      "sha256": "b65519b6ec52c13fbf7af65a7bd50dc7d0fdc77ee1a6edc9427fa1ed80275e00"
+    },
+    "bank/wsi_vqa_eval_memory_fallback.json": {
+      "bytes": 149,
+      "sha256": "57e454a074a2af65b074a89f0ed4afa26e9b053ff79089ba4ea8f17b401f6648"
+    },
+    "bank/wsi_vqa_eval_memory_fallback.json.shards/index.json": {
+      "bytes": 177,
+      "sha256": "1cd6f5cf6de04c330ffc8d6b4d22e429197de536b5f4835de787074206a73f88"
+    },
+    "bank/wsi_vqa_eval_memory_fallback.json.shards/tcga-ol-a66p.jsonl": {
+      "bytes": 721128,
+      "sha256": "c12ae9ec5251c5770d933f2eb87309de8b15ff263fcbbdca57c741205e11ecee"
+    },
+    "ui_tree/tcga-ol-a66p.ui_tree.json": {
+      "bytes": 233425,
+      "sha256": "b227792921dd7656b73b0449e719a2fa7392200cc9eefa7a713366830a5bc986"
+    }
+  }
+}

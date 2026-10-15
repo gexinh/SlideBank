@@ -27,4 +27,4 @@ Local model runtimes and weights, including Quilt-LLaVA, are obtained separately
 
 The [arXiv paper](https://arxiv.org/abs/2609.00342) is distributed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Its main figure is available as [`assets/main-figure.pdf`](../assets/main-figure.pdf), with a PNG rendering for the README and project page. Paper and figure terms are separate from the source-code license.
 
-Benchmark WSIs, annotations, and precomputed banks are not bundled. Data obtained from the original sources remains subject to the corresponding dataset terms.
+The [included demonstration bank](../demos/README.md) contains derived images and precomputed observations for one open-access TCGA-BRCA slide. Credit the TCGA Research Network and follow the linked GDC data terms. Additional WSIs, annotations, and banks are obtained separately under their source terms.

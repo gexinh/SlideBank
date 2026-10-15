@@ -5,6 +5,27 @@ evidence browser: global slide overview, selected grid cell, and anchor patch
 views. Browsing an existing evidence tree requires no model call. Question
 answering and rebuilding a bank use the model you configure.
 
+## Try the included slide
+
+Open the [Hugging Face workbench](https://huggingface.co/spaces/gexinh/SlideBank).
+The example slide and its retrieval bank are loaded automatically. Select a
+region and an anchor to browse the evidence, or enter a question and press
+**Send**. The hosted demo uses Qwen2.5-VL-3B-Instruct on ZeroGPU and requires no
+visitor API key. GPU requests may queue or reach a usage quota. The original
+precomputed observations remain available for browsing during that time.
+
+To browse the same example locally with only the UI dependencies:
+
+```bash
+python -m pip install -e '.[ui]'
+python space_app.py
+```
+
+Open <http://127.0.0.1:7860>. This preset entry point enables live QA only on a
+ZeroGPU Space. For your own local model or an API, use `app.py` below. See
+[HOSTING.md](HOSTING.md) for the hosted runtime and
+[the example provenance](../demos/README.md).
+
 ## Start locally
 
 Install the package and UI dependencies from the repository root:
@@ -62,7 +83,9 @@ python app.py
 Choose **Local Model** for Quilt-LLaVA or Qwen2.5-VL. Install the corresponding
 model dependencies and download the weights into the local Hugging Face cache
 or configure a local snapshot path before sending a question. The Hugging Face
-loader uses cached/local weights (`local_files_only=True`).
+loader uses cached/local weights by default (`local_files_only=True`). An
+explicit `vlm.allow_remote_download: true` enables Hugging Face downloads; this
+is enabled in the hosted demo configuration.
 Quilt-LLaVA also requires its external code repository; set
 `SLIDEBANK_QUILT_LLAVA_REPO` or the corresponding configuration field.
 

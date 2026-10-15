@@ -36,6 +36,9 @@ from slidebank.ui_v3_backend import (
 
 
 APP_ROOT = Path(__file__).resolve().parent
+HOSTED_MODE = os.environ.get("SLIDEBANK_HOSTED", "").strip().lower() in {"1", "true", "yes"}
+if HOSTED_MODE:
+    from hf_space import runtime as hosted_runtime
 
 
 def _configured_path(variable: str, default: str) -> Path:
@@ -99,6 +102,8 @@ def _runtime_config(
     api_key: str,
     api_base_url: str,
 ) -> Dict[str, Any]:
+    if HOSTED_MODE:
+        return hosted_runtime.hosted_runtime(INFER_DEFAULTS)
     return {
         "model_backend": model_backend,
         "local_model": local_model,
@@ -111,6 +116,8 @@ def _runtime_config(
 
 
 def _runtime_label(runtime: Dict[str, Any]) -> str:
+    if runtime.get("hosted"):
+        return f"Hosted demo / {runtime.get('local_model', 'Qwen2.5-VL-3B-Instruct')}"
     if str(runtime.get("model_backend", "")) == "API Model":
         provider = str(runtime.get("api_provider", "") or "API").strip()
         model = str(runtime.get("api_model", "") or "Custom").strip()
@@ -120,6 +127,8 @@ def _runtime_label(runtime: Dict[str, Any]) -> str:
 
 
 def _validate_send_runtime(runtime: Dict[str, Any]) -> str:
+    if HOSTED_MODE:
+        return hosted_runtime.availability_error()
     backend = str(runtime.get("model_backend", "Local Model"))
     if backend == "API Model":
         provider = str(runtime.get("api_provider", "")).strip()
@@ -323,6 +332,16 @@ INITIAL_CHAT = [
         "content": "The evidence tree is loaded. Browse its grid cells and anchors below, or configure your model and memory-bank paths to ask a question.",
     }
 ] if INITIAL_BANK else []
+if HOSTED_MODE:
+    availability = hosted_runtime.availability_error()
+    INITIAL_STATUS = availability or "ZeroGPU QA is available. Requests share a GPU queue and usage quota."
+    INITIAL_CHAT = [{
+        "role": "assistant",
+        "content": (
+            "The prebuilt evidence bank is ready to explore. "
+            + (availability or "Ask a question to retrieve evidence and run the hosted Qwen2.5-VL model.")
+        ),
+    }]
 
 
 def on_image_source_change(image_source: str) -> Tuple[Any, Any]:
@@ -490,6 +509,8 @@ def load_prebuilt_bank(
     runtime = _runtime_config(model_backend, local_model, api_provider, api_model, custom_api_model, api_key, api_base_url)
     history = list(chat_history or [])
     try:
+        if HOSTED_MODE and image_source != "Configured evidence trees":
+            raise RuntimeError("The hosted workbench uses the prebuilt evidence bank. Uploads are available in the local workbench.")
         if image_source == "Configured evidence trees":
             if not demo_slide_name or demo_slide_name not in DEMO_REGISTRY:
                 raise RuntimeError("Export an evidence tree and set SLIDEBANK_UI_TREE_DIR before loading a configured slide.")
@@ -742,6 +763,8 @@ def submit_chat(
     if not question:
         return history, "", gr.skip(), gr.skip(), gr.skip(), "Please enter a question."
     runtime = _runtime_config(model_backend, local_model, api_provider, api_model, custom_api_model, api_key, api_base_url)
+    if HOSTED_MODE and len(question) > 2000:
+        return history, question, gr.skip(), gr.skip(), runtime, "Please limit hosted questions to 2,000 characters."
     if not _bank_loaded(bank):
         status = "Load an exported evidence tree before asking a question. See docs/WORKBENCH.md."
         return history, "", gr.skip(), gr.skip(), runtime, status
@@ -764,7 +787,8 @@ def submit_chat(
         )
     history_before_turn = list(history)
     try:
-        answer = answer_question_v5(
+        answer_function = hosted_runtime.answer_on_gpu if HOSTED_MODE else answer_question_v5
+        answer = answer_function(
             message=question,
             bank=bank,
             runtime=runtime,
@@ -783,8 +807,16 @@ def submit_chat(
         runtime["final_stage"] = answer.final_stage
         runtime["evidence_route"] = answer.evidence_route
     except Exception as exc:
-        assistant_text = f"### Agent Error\n{type(exc).__name__}: {exc}"
-        status = f"Agent inference failed: {type(exc).__name__}: {exc}"
+        if HOSTED_MODE:
+            status = (
+                "Live QA could not finish. ZeroGPU capacity, quota, or the model runtime may be unavailable. "
+                "Please retry later; evidence browsing is still available."
+            )
+            assistant_text = status
+            print(f"Hosted QA failed: {type(exc).__name__}: {exc}", flush=True)
+        else:
+            assistant_text = f"### Agent Error\n{type(exc).__name__}: {exc}"
+            status = f"Agent inference failed: {type(exc).__name__}: {exc}"
     history.extend(
         [
             {"role": "user", "content": question},
@@ -853,7 +885,13 @@ CSS = """
 
 with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
     gr.Markdown("# SlideBank Workbench", elem_id="title")
-    gr.Markdown("Load an exported evidence tree to explore **slide → grid → anchor patches**. Connect your own local model or API for question answering. [Setup guide](https://github.com/gexinh/SlideBank/blob/main/docs/WORKBENCH.md).")
+    gr.Markdown(
+        "Explore the prebuilt **slide → grid → anchor patches** evidence bank. "
+        "Live questions use **Qwen2.5-VL-3B-Instruct on ZeroGPU**, a demonstration model distinct from the paper's pathology backbones. "
+        "GPU requests may queue and are subject to Hugging Face usage quota."
+        if HOSTED_MODE else
+        "Load an exported evidence tree to explore **slide → grid → anchor patches**. Connect your own local model or API for question answering. [Setup guide](https://github.com/gexinh/SlideBank/blob/main/docs/WORKBENCH.md)."
+    )
     bank_state = gr.State(INITIAL_BANK)
     selected_tile_id_state = gr.State(INITIAL_TILE_ID)
     selected_anchor_id_state = gr.State(INITIAL_ANCHOR_ID)
@@ -862,21 +900,21 @@ with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
 
     with gr.Row(equal_height=True):
         with gr.Column(scale=1, min_width=340, elem_id="top_controls"):
-            gr.Markdown("### Input & Runtime Controls")
-            image_source = gr.Radio(label="Evidence Source", choices=["Configured evidence trees", "Upload UI-tree JSON"], value="Configured evidence trees")
+            gr.Markdown("### Evidence bank" if HOSTED_MODE else "### Input & Runtime Controls")
+            image_source = gr.Radio(label="Evidence Source", choices=["Configured evidence trees", "Upload UI-tree JSON"], value="Configured evidence trees", visible=not HOSTED_MODE)
             upload_file = gr.File(
                 label="Upload exported UI-tree JSON",
                 file_types=[".json"],
                 visible=False,
             )
             demo_slide = gr.Dropdown(
-                label="Configured Slide",
+                label="Demo Slide" if HOSTED_MODE else "Configured Slide",
                 choices=list(DEMO_REGISTRY.keys()),
                 value=INITIAL_DEMO or None,
                 interactive=True,
             )
-            model_backend = gr.Radio(label="Model Backend", choices=["Local Model", "API Model"], value="Local Model")
-            with gr.Group(visible=True) as local_model_group:
+            model_backend = gr.Radio(label="Model Backend", choices=["Local Model", "API Model"], value="Local Model", visible=not HOSTED_MODE)
+            with gr.Group(visible=not HOSTED_MODE) as local_model_group:
                 local_model = gr.Dropdown(
                     label="Local Model",
                     choices=LOCAL_MODEL_CHOICES,
@@ -889,8 +927,8 @@ with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
                 api_key = gr.Textbox(label="API Key", value="", type="password", lines=1)
                 api_base_url = gr.Textbox(label="API Base URL", value="", lines=1, visible=False)
             load_bank_btn = gr.Button("Load Evidence", variant="primary")
-            run_bank_btn = gr.Button("Rebuild Configured Slide", variant="secondary")
-            gr.Markdown("Rebuild reads local WSI inputs from `configs/build.yaml` and calls the selected model. For a new WSI, use `scripts/build_bank.py` first.")
+            run_bank_btn = gr.Button("Rebuild Configured Slide", variant="secondary", visible=not HOSTED_MODE)
+            gr.Markdown("Rebuild reads local WSI inputs from `configs/build.yaml` and calls the selected model. For a new WSI, use `scripts/build_bank.py` first.", visible=not HOSTED_MODE)
             status_box = gr.Textbox(label="Status", value=INITIAL_STATUS, interactive=False, lines=2)
 
         with gr.Column(scale=2, min_width=620, elem_id="chat_panel"):
@@ -913,7 +951,7 @@ with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
                     lines=2,
                     scale=8,
                 )
-                send_btn = gr.Button("Send", variant="primary", scale=1)
+                send_btn = gr.Button("Send", variant="primary", scale=1, interactive=not HOSTED_MODE or not hosted_runtime.availability_error())
             clear_chat_btn = gr.Button("Clear Chat", variant="secondary", size="sm")
 
     with gr.Column(elem_id="global_panel"):
@@ -960,9 +998,10 @@ with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
         gr.Markdown("### Anchor Patch Views")
         patch_cards = gr.HTML(render_patch_cards(INITIAL_BANK, INITIAL_TILE_ID, INITIAL_ANCHOR_ID), elem_id="patch_cards")
 
-    image_source.change(on_image_source_change, inputs=[image_source], outputs=[upload_file, demo_slide])
-    model_backend.change(on_model_backend_change, inputs=[model_backend], outputs=[local_model_group, api_model_group])
-    api_provider.change(on_api_provider_change, inputs=[api_provider], outputs=[api_base_url])
+    if not HOSTED_MODE:
+        image_source.change(on_image_source_change, inputs=[image_source], outputs=[upload_file, demo_slide])
+        model_backend.change(on_model_backend_change, inputs=[model_backend], outputs=[local_model_group, api_model_group])
+        api_provider.change(on_api_provider_change, inputs=[api_provider], outputs=[api_base_url])
 
     bank_inputs = [
         image_source,
@@ -994,7 +1033,8 @@ with gr.Blocks(title="SlideBank Workbench", css=CSS) as demo:
         runtime_config_state,
         chatbot,
     ]
-    run_bank_btn.click(run_bank_extraction, inputs=bank_inputs + [bank_state], outputs=bank_outputs)
+    if not HOSTED_MODE:
+        run_bank_btn.click(run_bank_extraction, inputs=bank_inputs + [bank_state], outputs=bank_outputs)
     load_bank_btn.click(load_prebuilt_bank, inputs=bank_inputs, outputs=bank_outputs)
     demo_slide.change(load_prebuilt_bank, inputs=bank_inputs, outputs=bank_outputs)
 

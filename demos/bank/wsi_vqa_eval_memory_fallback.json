@@ -1,0 +1,7 @@
+{
+  "storage": "sharded_jsonl",
+  "version": 2,
+  "shard_dir": "wsi_vqa_eval_memory_fallback.json.shards",
+  "slide_count": 1,
+  "total_rows": 356
+}

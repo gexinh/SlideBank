@@ -80,6 +80,16 @@ def _model_name_from_runtime(runtime: Dict[str, Any]) -> str:
 
 def make_vlm_config(runtime: Dict[str, Any], defaults: Dict[str, Any]) -> VLMConfig:
     vlm_defaults = defaults.get("vlm", {}) if isinstance(defaults.get("vlm", {}), dict) else {}
+    if runtime.get("hosted"):
+        return VLMConfig(
+            backend="local_hf",
+            model_path=str(vlm_defaults.get("model_path", "Qwen/Qwen2.5-VL-3B-Instruct")),
+            device_map="cuda:0",
+            dtype=str(vlm_defaults.get("dtype", "bf16")),
+            max_new_tokens=int(vlm_defaults.get("max_new_tokens", 256)),
+            allow_remote_download=bool(vlm_defaults.get("allow_remote_download", False)),
+            max_image_pixels=int(vlm_defaults.get("max_image_pixels", 401408)),
+        )
     backend = str(runtime.get("model_backend", "Local Model"))
     if backend == "API Model":
         provider_map = {"Google": "gemini", "OpenAI": "openai", "Custom Endpoint": "openai_compatible"}
@@ -119,6 +129,7 @@ def make_vlm_config(runtime: Dict[str, Any], defaults: Dict[str, Any]) -> VLMCon
     model_aliases = {
         "Qwen2.5-VL": "Qwen/Qwen2.5-VL-7B-Instruct",
         "Qwen2.5-VL-7B-Instruct": "Qwen/Qwen2.5-VL-7B-Instruct",
+        "Qwen2.5-VL-3B-Instruct": "Qwen/Qwen2.5-VL-3B-Instruct",
     }
     model_path = model_aliases.get(local_model, local_model)
     return VLMConfig(
@@ -127,6 +138,8 @@ def make_vlm_config(runtime: Dict[str, Any], defaults: Dict[str, Any]) -> VLMCon
         device_map=str(vlm_defaults.get("device_map", "auto")),
         dtype=str(vlm_defaults.get("dtype", "fp16")),
         max_new_tokens=max(256, int(vlm_defaults.get("max_new_tokens", 256))),
+        allow_remote_download=bool(vlm_defaults.get("allow_remote_download", False)),
+        max_image_pixels=int(vlm_defaults.get("max_image_pixels", 0)),
     )
 
 
@@ -157,6 +170,8 @@ def get_vlm_client(config: VLMConfig) -> VLMClient:
         config.device_map,
         config.dtype,
         config.max_new_tokens,
+        config.allow_remote_download,
+        config.max_image_pixels,
         config.api_provider,
         config.api_key,
         config.api_base_url,

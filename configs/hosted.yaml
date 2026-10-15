@@ -1,0 +1,21 @@
+bank:
+  persist_dir: demos/bank
+  artifact_dir: demos/artifacts
+
+vlm:
+  backend: local_hf
+  model_path: Qwen/Qwen2.5-VL-3B-Instruct
+  device_map: cuda:0
+  dtype: bf16
+  max_new_tokens: 256
+  max_image_pixels: 401408
+  allow_remote_download: true
+
+retrieval:
+  memory_route_mode: agent
+  signal_topk: 4
+  signal_views_per_signal: 2
+  signal_context_max_chars: 3200
+  region_topk: 2
+  detail_topk: 2
+  anchor_topk: 2
